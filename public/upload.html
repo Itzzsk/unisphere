@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Upload</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <!-- Background Upload -->
+        <h1 class="text-xl font-bold mb-4 text-center">Upload Background</h1>
+        <form id="uploadBackgroundForm">
+            <input type="file" id="backgroundImage" accept="image/*" class="mb-4">
+            <button type="submit" class="w-full bg-black text-white py-2 rounded">
+                Update Background
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function forceImageReload(imgElement, url) {
+            const timestamp = Date.now();
+            imgElement.src = `${url.split('?')[0]}?ts=${timestamp}`;
+        }
+
+        async function handleUpload(fieldName, inputId, endpoint, storageKey) {
+            const stored = localStorage.getItem('tempCredentials');
+            if (!stored) {
+                alert('Session expired');
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            const { username, password } = JSON.parse(stored);
+            const fileInput = document.getElementById(inputId);
+            if (!fileInput.files.length) {
+                alert('Please select a file first');
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append(fieldName, fileInput.files[0]);
+                formData.append('username', username);
+                formData.append('password', password);
+
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                console.log("Upload result:", result);
+
+                if (response.ok) {
+                    alert(result.message);
+
+                    // Notify other windows to refresh
+                    if (window.opener) {
+                        window.opener.postMessage('backgroundUpdated', '*');
+                    }
+                } else {
+                    throw new Error(result.message || 'Upload failed');
+                }
+            } catch (error) {
+                alert(error.message || 'Network error: Please check your connection');
+            }
+        }
+
+        function setupFormHandler(formId, handler) {
+            document.getElementById(formId).addEventListener("submit", (e) => {
+                e.preventDefault();
+                handler();
+            });
+        }
+
+        // Bind background upload form handler
+        setupFormHandler("uploadBackgroundForm", () => {
+            handleUpload("background", "backgroundImage", "/api/upload/background", "bgImage");
+        });
+
+        async function loadBackground() {
+            try {
+                const response = await fetch('/api/background');
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                const { imageUrl } = await response.json();
+                if (!imageUrl) throw new Error("No background image found");
+
+                // Apply background image dynamically
+                document.body.style.backgroundImage = `url(${imageUrl})`;
+                document.body.style.backgroundSize = "cover";
+                document.body.style.backgroundRepeat = "no-repeat";
+            } catch (error) {
+                console.error("Error loading background:", error);
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", loadBackground);
+        window.addEventListener("backgroundUpdated", loadBackground);
+    </script>
+</body>
+</html>
