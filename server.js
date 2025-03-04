@@ -52,25 +52,26 @@ const adminSchema = new mongoose.Schema({
 const Admin = mongoose.model('Admin', adminSchema);
 
 // Initialize Admin
-async function initializeAdmin() {
-  const username = 'itzzsk'; // Set the admin username you want
-  const newPassword = 'saymyname123'; // Change this to the new password
-  
+async function initializeAdmin(username, newPassword) {
+  if (!username || !newPassword) {
+    console.log("⚠️ Username and password are required.");
+    return;
+  }
+
   const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-  const result = await Admin.findOneAndUpdate(
-    { username }, // Find admin with the same username
-    { password: hashedPassword }, // Update password
-    { upsert: false, new: true } // Only update, don’t insert a duplicate
-  );
+  let admin = await Admin.findOne({ username });
 
-  if (result) {
-    console.log("✅ Admin password updated successfully:", result);
+  if (admin) {
+    admin.password = hashedPassword;
+    await admin.save();
+    console.log(`✅ Admin "${username}" password updated successfully.`);
   } else {
-    console.log("⚠️ Admin with this username does not exist.");
+    admin = new Admin({ username, password: hashedPassword });
+    await admin.save();
+    console.log(`✅ Admin "${username}" created successfully.`);
   }
 }
-
 
 // Multer Storage
 
