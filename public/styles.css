@@ -1,11 +1,21 @@
+/* =========================
+   Global Reset & Typography
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    margin: 0;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    text-align: center;
-}  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+/* Karla font for specific text */
 .karla-text {
   font-family: "Karla", sans-serif;
   font-optical-sizing: auto;
@@ -13,6 +23,9 @@ body {
   font-style: normal;
 }
 
+/* =========================
+ Splash Screen
+=========================== */
 #splashScreen {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
@@ -22,89 +35,93 @@ body {
   visibility: hidden;
 }
 
+/* =========================
+ Logo Styling
+=========================== */
 .logo {
-    font-size: 34px; /* Adjust as needed */
-    color: #000000; /* Text color */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); 
-    width: 150px; /* Adjust the size */
-    height: auto;
-    display: block;
-    margin: 0 auto; /* Center the logo if needed */
-    position: absolute;
-    top: 25px; /* Distance from the top */
-    left: 20px; /* Distance from the left */
- /* Shadow around the image */
-    border-radius: 8px; /* Optional if your image has edges */
+  font-size: 34px; /* Adjust as needed */
+  color: #000000; /* Text color */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); 
+  width: 150px; /* Adjust the size */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the logo if needed */
+  position: absolute;
+  top: 25px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+/* Shadow around the image */
+  border-radius: 8px; /* Optional if your image has edges */
 }
+
+/* =========================
+ Menu Icon
+=========================== */
 .menu {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
 }
 
-button[onclick*="toggleCommentSection"] {
-    font-size: 1.2rem;
-    padding: 0 0px;
-}
+/* =========================
+ Background Container
+=========================== */
 #backgroundContainer {
-    background-image: url('/uploads/background.jpg');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100vh;
+  background-image: url('/uploads/background.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-}
- 
-/* Header */
+/* =========================
+ Header
+=========================== */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 24px;
+  margin: 0;
+  font-size: 24px;
 }
 
-.menu {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Mobile Menu */
+/* =========================
+ Mobile Menu
+=========================== */
 #mobile-menu {
   position: absolute;
   right: 20px;
   top: 50px;
-  background: white;
   padding: 10px;
-  width: 130px; /* Or any size you want */
+  width: 130px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
-
+nav {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 90%;
+  background-color: rgb(255, 255, 255); /* Light white background with transparency */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none; /* Hide by default */
+}
 
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column; /* Stack items */
+  flex-direction: column;
   gap: 15px;
-}
-
-nav ul li {
-  text-align: left; /* Align text to left, or center if you prefer */
 }
 
 nav ul li a {
@@ -114,134 +131,115 @@ nav ul li a {
   font-weight: 500;
 }
 
-
 .show {
-    display:block!important;
+  display: block !important;
 }
 
-/* Tabs */
+/* =========================
+ Tabs
+=========================== */
 .tabs {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 30px;
 }
 
 .tab {
-    background: none;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    color: #000000;
-   
-    position: relative;
-    border-radius: 0;
-    outline: none;
+  background: none;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  position: relative;
+  z-index: 1;
 }
 
 .tab::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0%;
-    height: 6px; /* Increased height for better curve visibility */
-    background-color: #000;
-    border-radius: 999px; /* Makes the ends fully rounded */
-    transition: width 0.3s ease;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 6px;
+  background-color: #000;
+  border-radius: 999px;
+  transition: width 0.3s ease;
 }
 
 .tab.active::after {
-    width: 80%; /* Smaller than full width for a nice curved underline */
+  width: 80%;
 }
 
-.tab:hover {
-    color: #333;
-}
-
-/* Content Sections */
+/* =========================
+ Content Sections
+=========================== */
 .content {
-    display: none;
-    text-align: center;
+  display: none;
+  text-align: center;
 }
 
 .content.active {
-    display: block;
+  display: block;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f0f0f0;
-  }
-  .slider-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 920px;
-    height: 300px;
-    margin: 50px auto;
-    overflow: hidden;
-    border-radius: 30px;
+/* =========================
+ Image Slider
+=========================== */
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  height: 300px;
+  margin: 50px auto;
+  overflow: hidden;
+  border-radius: 30px;
+}
 
-  }
-  .slider {
-    display: flex;
-    width: calc(200% + 20px);
-    transition: transform 0.8s ease-in-out;
-  }
-  .slide {
-    width: calc(50% - 10px);
-    height: 300px;
-    flex-shrink: 0;
-    aspect-ratio: 16 / 9; /* this keeps it 16:9 */
-  }
-  .slide:first-child {
-    margin-right: 20px;
-  }
-  .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border-radius: 30px;
-    aspect-ratio: 16 / 9; /* this keeps it 16:9 */
-  }
+.slider {
+  display: flex;
+  width: calc(200% + 20px);
+  transition: transform 0.8s ease-in-out;
+}
 
-/* Grid */
+.slide {
+  width: calc(50% - 10px);
+  height: 300px;
+  flex-shrink: 0;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+ Notes / Projects Grid
+=========================== */
 .notes-row {
-  font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  color: #000000;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
   padding: 20px;
+  font-family: "Nunito", sans-serif;
 }
 
 .project {
-  flex: 1 1 calc(30% - 20px); /* Slightly bigger cards */
-  box-sizing: border-box;
-  margin-bottom: 20px;
-  max-width: 250px; /* Limit max width */
+  flex: 1 1 calc(30% - 20px);
+  max-width: 250px;
 }
 
 .project-image {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  object-fit: cover; /* To ensure the image fills nicely */
 }
 
 .project-image:hover {
@@ -249,109 +247,49 @@ nav ul li a {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
-
-
-/* Sidebar */
+/* =========================
+ Sidebar Transitions
+=========================== */
 #sidebar {
-    transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 #sidebar.hidden {
-    transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
-#aboutSection, #createPost {
-    transition: opacity 0.3s ease;
+/* About & Create Post Transitions */
+#aboutSection,
+#createPost {
+  transition: opacity 0.3s ease;
 }
 
-#aboutSection.hidden, #createPost.hidden {
-    opacity: 0;
-    pointer-events: none;
+#aboutSection.hidden,
+#createPost.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Buttons and Interactions */
-.like-btn, .comment-btn {
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-    font-size: 1.2rem;
-    transition: all 0.2s ease;
-}
-
-.like-btn:hover, .comment-btn:hover {
-    transform: scale(1.05);
-}
-
-.like-count, .comment-count {
-    margin-left: 4px;
-    font-size: 0.9rem;
-    color: #6c6c6c;
-}
-
-
-
-/* Background Image */
-.fixed.inset-0.-z-50 {
-    z-index: -50;
-}
-
-#backgroundImage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-}
-
-/* Posts Container */
+/* =========================
+ Posts & Cards
+=========================== */
 #postsContainer {
-  padding: 1rem;
-  max-width: 800px;
+  padding: 0;
   margin: 0 auto;
-
-}
-
-/* Input Fields */
-input[type="text"], textarea {
-    border: 1px solid #f6e4e4 !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    transition: all 0.3s ease;
-}
-
-input[type="text"]:focus, textarea:focus {
-    border-color: #94a3b8 !important;
-    box-shadow: 0 2px 8px rgba(148, 163, 184, 0.1) !important;
-}
-
-/* Button Styling */
-button, .btn {
-    transition: all 0.3s ease !important;
-    transform: scale(1);
-}
-
-button:hover, .btn:hover {
-    transform: scale(1.02);
-}
-
-/* Card Hover Effect */
-#postsContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Controls the space between each post */
-  padding: 0; /* Optional: remove padding if needed */
-  margin: 0;
+  align-items: center;
+  gap: 12px;
+  max-width: 500px;
 }
 
 #postsContainer > div {
-  transition: all 0.3s ease;
-  margin: 0; /* Remove any default margin */
-  padding: 16px; /* Adjust padding inside cards if needed */
+  width: 100%;
+  padding: 16px;
   border-radius: 12px;
   background-color: #f8fafc;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 #postsContainer > div:hover {
@@ -359,113 +297,152 @@ button:hover, .btn:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Image Preview */
-#imagePreview img {
-    transition: transform 0.3s ease;
+/* =========================
+ Buttons & Interactions
+=========================== */
+button,
+.btn {
+  transition: all 0.3s ease !important;
 }
 
-#imagePreview:hover img {
-    transform: scale(1.02);
+button:hover,
+.btn:hover {
+  transform: scale(1.02);
+}
+
+.like-btn,
+.comment-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.like-btn:hover,
+.comment-btn:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+ Input Fields
+=========================== */
+input[type="text"],
+textarea {
+  border: 1px solid #f6e4e4 !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #94a3b8 !important;
+  box-shadow: 0 2px 8px rgba(148, 163, 184, 0.1) !important;
 }
 /* For tablets and phones */
+/* For tablets and small screens */
 @media (max-width: 768px) {
 
-    body {
-      padding: 10px;
-      flex-direction: column;
-    }
-  
-    .logo {
-      font-size: 20px;
-      top: 10px;
-      left: 10px;
-      width: 90px;
-    }
-  
-    header {
-      flex-direction: column;
-      padding: 10px;
-    }
-  
-    .tabs {
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-  
-    .tab {
-      padding: 8px 15px;
-      font-size: 16px;
-    }
-  
-    .slider-wrapper {
-      height: 200px;
-    }
-  
-    .slide {
-      height: 200px;
-    }
-  
-    .notes-row{
-        display: flex;
-        gap: 20px;
-    }
-    
-    .project{
-        
+  body {
+    flex-direction: column;
+  }
+
+  .logo {
+    font-size: 20px;
+    top: 10px;
+    left: 10px;
+    width: 90px;
+  }
+
+  header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .tab {
+    padding: 8px 15px;
+    font-size: 16px;
+  }
+
+  .slider-wrapper,
+  .slide {
+    height: 200px;
+  }
+
+  .notes-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .project {
     flex: 1 1 calc(33.33% - 20px); /* 3 items per row */
     box-sizing: border-box;
-    margin-bottom:10px;
-    }
-    nav {
-      top: 60px;
-      right: 10px;
-      width: 90%;
-    }
-  
-    #postsContainer {
-      padding: 0.5rem;
-    }
-  
-    input[type="text"],
-    textarea {
-      padding: 10px !important;
-    }
+    margin-bottom: 10px;
   }
-  
-  /* For small phones */
-  @media (max-width: 480px) {
-    nav.show {
-      display: block;
-  }
-    .logo {
-        top: 10px;
-        left: 10px;
-      }
-    header h1 {
-      font-size: 18px;
-    }
-   
-    .tab {
-      font-size: 14px;
-      padding: 6px 10px;
-    }
-  
-    .slider-wrapper {
-      height: 150px;
-    }
-  
-    .slide {
-      height: 150px;
-    }
-  
-    .like-btn, .comment-btn {
-      font-size: 1rem;
-    }
 
-    button[onclick*="toggleCommentSection"] {
-        font-size: 1.2rem;
-        padding: 0 10px;
-    }
-  
+  nav {
+    top: 60px;
+    right: 10px;
+    width: 90%;
   }
+
+  #postsContainer {
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 10px !important;
+  }
+
+}
+
+/* For small phones */
+@media (max-width: 480px) {
+
+  nav.show {
+    display: block;
+  }
+
+  .logo {
+    width: 70px; /* Smaller size for mobile */
+    top: 8px; /* Less padding on top */
+    left: 8px; /* Less padding on left */
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+
+  .tab {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .slider-wrapper,
+  .slide {
+    height: 150px;
+  }
+
+  .like-btn,
+  .comment-btn {
+    font-size: 1rem;
+  }
+
+  button[onclick*="toggleCommentSection"] {
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
+
+}
+
   
