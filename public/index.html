@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>UniSphere</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-          tailwind.config = {
-            theme: {
-              extend: {
-                fontFamily: {
-                  karla: ['Karla', 'sans-serif'],
-                },
-              },
-            },
-          }
-        </script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@525&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniSphere</title>
 
-<div class="fixed inset-0 -z-50">
-    <img id="bgImage" class="w-full h-full object-cover">
-    <div id="bgLoading" class="absolute inset-0 flex justify-center items-center">
-    </div>
-</div>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            karla: ['Karla', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@525&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
 <body>
-    <div id="splashScreen" class="fixed inset-0 bg-black 200 flex items-center justify-center z-50">
-    <div class="flex flex-col items-center">
-      <img src="logo1.png" alt="UniSphere Logo" class="w-24 h-24 animate-bounce mb-4">
-    </div>
+  <!-- Background Image -->
+  <div class="fixed inset-0 -z-50">
+    <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
+    <div id="bgLoading" class="absolute inset-0 flex justify-center items-center"></div>
   </div>
-  </body>
-    </div>
-      <div class="container">
-        <header>
-          <div> <img src="logo1.png" alt="UniSphere Logo" class="logo"></div>
-            <div class="menu" onclick="toggleMenu()">&#9776;</div>
-            <nav id="mobile-menu" class="hidden">
-                <ul>
-                    <li><button id="openAbout" class="block px-4 py-2">About</button>
-                    </li>
-                    <li><button onclick="window.location.href='admin.html'">Admin Login</button></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="tabs font-karla">
-            <button class="tab  font-karla" data-tab="for-you"><h2>For You</h2></button>
-            <button class="tab  font-karla" data-tab="explore">Explore</button>
-        </div>
-        <body><!-- ABOUT SECTION -->
-            <div id="aboutSection" class="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center p-8 hidden z-50">
-              <h1 class="text-3xl font-karla mb-4">About UniSphere 🚀</h1>
-              <p class="text-center text-lg max-w-xl font-karla">
-                Welcome to our official college platform – built for students, by students. This is your go-to space to share notes, post updates, and connect with the campus community in real-time. Whether you're looking to swap ideas, collaborate on projects, or simply stay in the loop, this platform is designed to make the process seamless and engaging. Our goal is to keep knowledge flowing, conversations active, and everyone connected. Let's build something great together – one post, like, and comment at a time.
-              </p><br>
-              <P><b>Connect us </b></P>
-              <a href="https://www.instagram.com/bca.ahl?igsh=MTN0bXJvd2NmM2R4MQ==" target="_blank" class="mt-6 text-pink-600 text-3xl">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <button id="closeAbout" class="mt-6 bg-black text-white px-4 py-2 rounded">
-                Close
-              </button>
-            </div>
-            </body>
-        <!-- Banner Slider -->
-    
-        
+
+  <!-- Splash Screen -->
+  <div id="splashScreen" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+    <img src="logo1.png" alt="UniSphere Logo" class="w-24 h-24 animate-bounce">
+  </div>
+
+  <!-- Header -->
+  <header class="container">
+    <img src="logo1.png" alt="UniSphere Logo" class="logo">
+    <div class="menu" onclick="toggleMenu()">&#9776;</div>
+    <nav id="mobile-menu" class="hidden">
+      <ul>
+        <li><button id="openAbout">About</button></li>
+        <li><button onclick="window.location.href='admin.html'">Admin Login</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs font-Anek+Kannada">
+    <button class="tab" data-tab="for-you">For You</button>
+    <button class="tab" data-tab="explore">Explore</button>
+  </div>
+
+  <!-- About Section -->
+  <div id="aboutSection" class="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center p-8 hidden z-50">
+    <h1 class="text-3xl font-karla mb-4">About UniSphere 🚀</h1>
+    <p class="text-center text-lg max-w-xl font-karla">Welcome to our official college platform...</p>
+    <a href="https://www.instagram.com/bca.ahl" target="_blank" class="mt-6 text-pink-600 text-3xl">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <button id="closeAbout" class="mt-6 bg-black text-white px-4 py-2 rounded">Close</button>
+  </div>
+
+  <!-- Banner Slider -->
   <div class="slider-wrapper">
     <div class="slider" id="slider">
-      <div class="slide">
-        <img src="b1.jpg" alt="Banner 1">
-      </div>
-      <div class="slide">
-        <img src="b2.jpg" alt="Banner 2">
-      </div>
+      <div class="slide"><img src="b1.jpg" alt="Banner 1"></div>
+      <div class="slide"><img src="b2.jpg" alt="Banner 2"></div>
     </div>
   </div>
-            <div id="for-you" class="content">
+
+  <!-- For You Section -->
+  <div id="for-you" class="content">
+    <!-- Notes and QPs -->
                 
-                <h2 class="text-2xl font-karla mb-4">Notes and Qps</h2>
+                <h2 class="text-2xl font-Anek+Kannada mb-4">Notes and Qps</h2>
             <div class="notes-row">
 
             <div class="project">
@@ -195,7 +195,6 @@
         </div>
     </div>
 </div>
-    <script src="script.js"></script> 
       
         <div class="fixed inset-0 -z-50">
             <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
@@ -204,98 +203,39 @@
         </div>
         
         
-        <script>
-            
-                window.addEventListener('load', () => {
-                  setTimeout(() => {
-                    document.getElementById('splashScreen').classList.add('hide');
-                  }, 3000); // Show splash for at least 3 seconds
-                });
-              
-           document.getElementById('openAbout').addEventListener('click', function() {
-                document.getElementById('aboutSection').classList.remove('hidden');
-            });
-            function closeAbout() {
-                document.getElementById('aboutSection').classList.add('hidden');
-            }
-            
-     
-            document.addEventListener("DOMContentLoaded", async () => {
-    const bgImage = document.getElementById("bgImage");
-    const bgLoading = document.getElementById("bgLoading");
+        <script src="script.js"></script>
+  <script>
+    // Splash Screen Hide
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('splashScreen').classList.add('hide'), 3000));
 
-    async function loadBackground() {
-        try {
-            // Load Background
-            bgImage.src = `/api/background?ts=${Date.now()}`;
-            bgImage.onload = () => bgLoading.style.display = "none";
-            bgImage.onerror = () => {
-                bgLoading.style.display = "none";
-                bgImage.style.display = "none";
-            };
-        } catch (error) {
-            console.error("Error loading background:", error);
-            bgLoading.innerText = "Failed to load background.";
-        }
+    // Toggle Mobile Menu
+    function toggleMenu() {
+      document.getElementById("mobile-menu").classList.toggle("show");
     }
 
-    loadBackground();
+    // About Section Toggle
+    document.getElementById('openAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.remove('hidden'));
+    document.getElementById('closeAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.add('hidden'));
 
-    // Reload background if updated
-    window.addEventListener("backgroundUpdated", loadBackground);
-});
+    // Background Load
+    document.addEventListener("DOMContentLoaded", () => {
+      const bgImage = document.getElementById("bgImage");
+      bgImage.src = `/api/background?ts=${Date.now()}`;
+      bgImage.onload = () => bgLoading.style.display = "none";
+    });
 
-              
-            
-// Toggle mobile menu
-function toggleMenu() {
-    document.getElementById("mobile-menu").classList.toggle("show");
-}
-//
-let currentSlide = 0;
-const slider = document.getElementById('slider');
+    // Banner Slider
+    let currentSlide = 0;
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % 2;
+      document.getElementById('slider').style.transform = `translateX(-${currentSlide * 50}%)`;
+    }, 3000);
 
-setInterval(() => {
-  currentSlide = (currentSlide + 1) % 2; // Toggle between 0 and 1
-  slider.style.transform = `translateX(-${currentSlide * 50}%)`;
-}, 3000); // Slide every 3 seconds
-
-// Open About section
-document.getElementById('openAbout').addEventListener('click', () => {
-    document.getElementById('aboutSection').classList.remove('hidden');
-  });
-  
-  // Close About section
-  document.getElementById('closeAbout').addEventListener('click', () => {
-    document.getElementById('aboutSection').classList.add('hidden');
-  });
-  
-  const eventCard = document.getElementById('eventCard');
-  const imageModal = document.getElementById('imageModal');
-  const closeModal = document.getElementById('closeModal');
-  
-  eventCard.addEventListener('click', () => {
-    imageModal.classList.remove('hidden');
-  });
-  
-  closeModal.addEventListener('click', () => {
-    imageModal.classList.add('hidden');
-  });
-  
-              const eventsContainer = document.getElementById('eventsContainer');
-              const toggleEventsBtn = document.getElementById('toggleEventsBtn');
-            
-              toggleEventsBtn.addEventListener('click', () => {
-                if (eventsContainer.classList.contains('max-h-[500px]')) {
-                  eventsContainer.classList.remove('max-h-[500px]');
-                  eventsContainer.classList.add('max-h-full');
-                  toggleEventsBtn.textContent = 'View Less';
-                } else {
-                  eventsContainer.classList.add('max-h-[500px]');
-                  eventsContainer.classList.remove('max-h-full');
-                  toggleEventsBtn.textContent = 'View More';
-                }
-              });
-</script>
+    // Events View More Toggle
+    document.getElementById('toggleEventsBtn').addEventListener('click', () => {
+      const container = document.getElementById('eventsContainer');
+      container.classList.toggle('max-h-full');
+    });
+  </script>
 </body>
 </html>
