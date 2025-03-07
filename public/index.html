@@ -22,12 +22,9 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@525&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-
-  <!-- Custom Styles -->
+  <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&family=Lexend:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -56,7 +53,7 @@
   </header>
 
   <!-- Tabs -->
-  <div class="tabs font-Anek+Kannada">
+  <div class="tabs font-Big Shoulders Inline text-2xl">
     <button class="tab" data-tab="for-you">For You</button>
     <button class="tab" data-tab="explore">Explore</button>
   </div>
@@ -64,7 +61,8 @@
   <!-- About Section -->
   <div id="aboutSection" class="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center p-8 hidden z-50">
     <h1 class="text-3xl font-karla mb-4">About UniSphere 🚀</h1>
-    <p class="text-center text-lg max-w-xl font-karla">Welcome to our official college platform...</p>
+    <p class="text-center text-lg max-w-xl font-nunito">Welcome to our official college platform built for students, by students. This is your space to share honest thoughts, anonymous confessions, and connect with the campus community in a real and relatable way. Whether you're here to speak your mind, read what others are thinking, or simply stay updated on campus buzz, this platform is designed to keep things open, engaging, and fun.
+      Our goal is to create a space where everyone's voice matters, conversations stay active, and the community feels more connected than ever. Let's keep it real and build something amazing together – one confession, like, and comment at a time.    </p>
     <a href="https://www.instagram.com/bca.ahl" target="_blank" class="mt-6 text-pink-600 text-3xl">
       <i class="fab fa-instagram"></i>
     </a>
@@ -83,7 +81,7 @@
   <div id="for-you" class="content">
     <!-- Notes and QPs -->
                 
-                <h2 class="text-2xl font-Anek+Kannada mb-4">Notes and Qps</h2>
+                <h2 class="text-2xl font-Quicksand mb-4">Notes and Qps</h2>
             <div class="notes-row">
 
             <div class="project">
@@ -122,7 +120,7 @@
             </div>
             </div>
             <div class="mt-10 px-4">
-                <h2 class="text-3xl font-karla text-center mb-8">Upcoming Events</h2>
+                <h2 class="text-2xl font-Quicksand text-center mb-8">Upcoming Events</h2>
               
                 <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-h-[500px] overflow-hidden transition-all duration-500">
               
@@ -132,8 +130,8 @@
                 <div id="eventCard" class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
                   <img src="event1.jpg" alt="Event Thumbnail" class="w-full h-40 object-cover">
                   <div class="p-4">
-                    <h3 class="text-xl font-karla mb-2">Kalanjali</h3>
-                    <p class="text-gray-600 font-karla">🎭 Get Ready for the Ultimate Showdown! 🎤💃</p>
+                    <h3 class="text-xl font-Quicksand mb-2">Kalanjali</h3>
+                    <p class="text-gray-600 font-Quicksand">🎭 Get Ready for the Ultimate Showdown! 🎤💃</p>
                   </div>
                 </div>
               
@@ -156,7 +154,7 @@
                       
                         <!-- Toggle Button -->
                         <div class="mt-8 text-center">
-                            <button id="toggleEventsBtn" class="inline-block bg-black text-white px-2 py-1 rounded-full text-xs font-karla hover:bg-gray-800 transition">
+                            <button id="toggleEventsBtn" class="inline-block bg-black text-white px-2 py-1 rounded-full text-xs font-Quicksand hover:bg-gray-800 transition">
                                 View More
                               </button>
                               
@@ -164,13 +162,43 @@
                       </div>
                       
         </div>
-        
+        <script>
+          // Modal logic
+          const eventCard = document.getElementById('eventCard');
+          const imageModal = document.getElementById('imageModal');
+          const closeModal = document.getElementById('closeModal');
+          
+          eventCard.addEventListener('click', () => {
+            imageModal.classList.remove('hidden');
+          });
+          
+          closeModal.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+          });
+          
+          // Toggle View More button logic
+          const toggleEventsBtn = document.getElementById('toggleEventsBtn');
+          const eventsContainer = document.getElementById('eventsContainer');
+          let isExpanded = false;
+          
+          toggleEventsBtn.addEventListener('click', () => {
+            if (isExpanded) {
+              eventsContainer.style.maxHeight = '500px';
+              toggleEventsBtn.textContent = 'View More';
+            } else {
+              eventsContainer.style.maxHeight = 'none';
+              toggleEventsBtn.textContent = 'View Less';
+            }
+            isExpanded = !isExpanded;
+          });
+          </script>
+          
   
           
 <div id="explore" class="content">
    
-    
-    <div class="p-4 space-y-6" id="postsContainer"></div>
+  <div id="postsContainer" class="w-full max-w-4xl mx-auto"></div>
+
     
     <div class="fixed bottom-4 right-4">
         <button class="bg-black text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center" id="createPostButton">
@@ -182,11 +210,11 @@
     <div class="fixed inset-0 bg-white z-50 hidden" id="createPost">
         <div class="flex items-center justify-between p-4 border-b border-gray-300">
             <i class="fas fa-arrow-left text-2xl cursor-pointer" id="createPostBackButton"></i>
-            <h1 class="text-xl font-karla">Create</h1>
+            <h1 class="text-xl font-Quicksand">Create</h1>
             <button class="border border-black px-4 py-2 rounded-lg" id="submitPostButton">Post</button>
         </div>
         <div class="p-4">
-            <textarea class="w-full h-32 p-2 border border-gray-300 rounded-lg mb-2" placeholder="Add a caption..." id="postContent"></textarea>
+            <textarea class="w-full h-32 p-2 border border-gray-300 rounded-lg mb-2" placeholder="Share your thoughts..." id="postContent"></textarea>
             <input type="file" id="imageInput" accept="image/*" class="hidden" />
             <button id="imageUploadButton" class="text-gray-600 p-2 rounded-lg border border-gray-300">
                 <i class="fas fa-image mr-2"></i>Add Image
