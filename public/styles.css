@@ -8,20 +8,17 @@
 }
 
 body {
+  color: #000;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
   overflow-x: hidden;
   padding: 20px;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 1000; /* Makes the text bold */
 }
 
-/* Karla font for specific text */
-.karla-text {
-  font-family: "Karla", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
+
 
 /* =========================
  Splash Screen
@@ -162,7 +159,7 @@ nav ul li a {
   left: 50%;
   transform: translateX(-50%);
   width: 0%;
-  height: 6px;
+  height: 4px;
   background-color: #000;
   border-radius: 999px;
   transition: width 0.3s ease;
@@ -189,10 +186,11 @@ nav ul li a {
 =========================== */
 .slider-wrapper {
   position: relative;
+  align-items: center;
   width: 100%;
-  max-width: 920px;
+  max-width: 800px;
   height: 300px;
-  margin: 50px auto;
+  margin: 18px auto;
   overflow: hidden;
   border-radius: 30px;
 }
@@ -221,21 +219,25 @@ nav ul li a {
  Notes / Projects Grid
 =========================== */
 .notes-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  padding: 20px;
-  font-family: "Nunito", sans-serif;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 16px;
+  padding: 10px;
+  font-family: "Quicksand", sans-serif;
+  width: 100%;
+  max-width: 600px; /* Optional: control overall width */
+  margin: 0 auto;
 }
 
 .project {
-  flex: 1 1 calc(30% - 20px);
-  max-width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .project-image {
-  width: 100%;
+  width: 110%;
+  max-width: 120px;
   aspect-ratio: 1 / 1;
   border-radius: 12px;
   object-fit: cover;
@@ -246,6 +248,7 @@ nav ul li a {
   transform: scale(1.05);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
+
 
 /* =========================
  Sidebar Transitions
@@ -279,15 +282,15 @@ nav ul li a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  max-width: 500px;
+  gap: 8px;
+  max-width: 800px;
 }
 
 #postsContainer > div {
-  width: 100%;
+  width: 115%;
   padding: 16px;
   border-radius: 12px;
-  background-color: #f8fafc;
+  background-color: #c5c5c5;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
@@ -444,5 +447,6 @@ textarea:focus {
   }
 
 }
+
 
   
