@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniSphere</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            karla: ['Karla', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&family=Lexend:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Background Image -->
+  <div class="fixed inset-0 -z-50">
+    <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
+    <div id="bgLoading" class="absolute inset-0 flex justify-center items-center"></div>
+  </div>
+
+  <!-- Splash Screen -->
+  <div id="splashScreen" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+    <img src="logo1.png" alt="UniSphere Logo" class="w-24 h-24 animate-bounce">
+  </div>
+
+  <!-- Header -->
+  <header class="container">
+    <img src="logo1.png" alt="UniSphere Logo" class="logo">
+    <div class="menu" onclick="toggleMenu()">&#9776;</div>
+    <nav id="mobile-menu" class="hidden">
+      <ul>
+        <li><button id="openAbout">About</button></li>
+        <li><button onclick="window.location.href='admin.html'">Admin Login</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs font-Big Shoulders Inline text-2xl">
+    <button class="tab" data-tab="for-you">For You</button>
+    <button class="tab" data-tab="explore">Explore</button>
+  </div>
+
+  <!-- About Section -->
+  <div id="aboutSection" class="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center p-8 hidden z-50">
+    <h1 class="text-3xl font-karla mb-4">About UniSphere 🚀</h1>
+    <p class="text-center text-lg max-w-xl font-nunito">Welcome to our official college platform built for students, by students. This is your space to share honest thoughts, anonymous confessions, and connect with the campus community in a real and relatable way. Whether you're here to speak your mind, read what others are thinking, or simply stay updated on campus buzz, this platform is designed to keep things open, engaging, and fun.
+      Our goal is to create a space where everyone's voice matters, conversations stay active, and the community feels more connected than ever. Let's keep it real and build something amazing together – one confession, like, and comment at a time.    </p>
+    <a href="https://www.instagram.com/bca.ahl" target="_blank" class="mt-6 text-pink-600 text-3xl">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <button id="closeAbout" class="mt-6 bg-black text-white px-4 py-2 rounded">Close</button>
+  </div>
+
+  <!-- Banner Slider -->
+  <div class="slider-wrapper">
+    <div class="slider" id="slider">
+      <div class="slide"><img src="b1.jpg" alt="Banner 1"></div>
+      <div class="slide"><img src="b2.jpg" alt="Banner 2"></div>
+    </div>
+  </div>
+
+  <!-- For You Section -->
+  <div id="for-you" class="content">
+    <!-- Notes and QPs -->
+                
+                <h2 class="text-2xl font-Quicksand mb-4">Notes and Qps</h2>
+            <div class="notes-row">
+
+            <div class="project">
+                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/0D93WBQa" target="_blank">
+                    <img src="1st.jpg" alt="Project Image" class="project-image">
+                </a>
+            </div>
+        
+            <div class="project">
+                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/BK9BSJrD" target="_blank">
+                    <img src="2nd.jpg" alt="Project Image" class="project-image">
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/kC1RWBhb" target="_blank">
+                    <img src="3rd.jpg" alt="Project Image" class="project-image">
+                </a>
+            </div>
+            </div>
+            <div class="notes-row">
+
+            <div class="project">
+                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/Jf9VCZ7A" target="_blank">
+                    <img src="4th.jpg" alt="Project Image" class="project-image">
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/wS8nxDDZ" target="_blank">
+                    <img src="5th.jpg" alt="Project Image" class="project-image">
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/Ae1jQTrJ" target="_blank">
+                    <img src="6th.jpg" alt="Project Image" class="project-image">
+                </a>
+            </div>
+            </div>
+            <div class="mt-10 px-4">
+                <h2 class="text-2xl font-Quicksand text-center mb-8">Upcoming Events</h2>
+              
+                <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-h-[500px] overflow-hidden transition-all duration-500">
+              
+                  <!-- Event 1 -->
+             <!-- Event Card -->
+             <div class="relative">
+                <div id="eventCard" class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+                  <img src="event1.jpg" alt="Event Thumbnail" class="w-full h-40 object-cover">
+                  <div class="p-4">
+                    <h3 class="text-xl font-Quicksand mb-2">Kalanjali</h3>
+                    <p class="text-gray-600 font-Quicksand">🎭 Get Ready for the Ultimate Showdown! 🎤💃</p>
+                  </div>
+                </div>
+              
+                <!-- Full Image Modal -->
+                <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
+                  <div class="relative">
+                    <img src="event1.jpg" alt="Full Event Image" class="max-w-full max-h-screen rounded-lg">
+                    <button id="closeModal" class="absolute top-3 right-3 bg-white w-10 h-10 flex items-center justify-center rounded-lg shadow-md">
+                        <span class="text-black text-xl">✕</span>
+                      </button>
+                      
+                  </div>
+                </div>
+              </div>
+                
+                          <!-- Add more events here if needed -->
+                          <!-- Hidden events can go here if you want to reveal them on "View All" -->
+                      
+                        </div>
+                      
+                        <!-- Toggle Button -->
+                        <div class="mt-8 text-center">
+                            <button id="toggleEventsBtn" class="inline-block bg-black text-white px-2 py-1 rounded-full text-xs font-Quicksand hover:bg-gray-800 transition">
+                                View More
+                              </button>
+                              
+                        </div>
+                      </div>
+                      
+        </div>
+        <script>
+          // Modal logic
+          const eventCard = document.getElementById('eventCard');
+          const imageModal = document.getElementById('imageModal');
+          const closeModal = document.getElementById('closeModal');
+          
+          eventCard.addEventListener('click', () => {
+            imageModal.classList.remove('hidden');
+          });
+          
+          closeModal.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+          });
+          
+          // Toggle View More button logic
+          const toggleEventsBtn = document.getElementById('toggleEventsBtn');
+          const eventsContainer = document.getElementById('eventsContainer');
+          let isExpanded = false;
+          
+          toggleEventsBtn.addEventListener('click', () => {
+            if (isExpanded) {
+              eventsContainer.style.maxHeight = '500px';
+              toggleEventsBtn.textContent = 'View More';
+            } else {
+              eventsContainer.style.maxHeight = 'none';
+              toggleEventsBtn.textContent = 'View Less';
+            }
+            isExpanded = !isExpanded;
+          });
+          </script>
+          
+  
+          
+<div id="explore" class="content">
+   
+  <div id="postsContainer" class="w-full max-w-4xl mx-auto"></div>
+
+    
+    <div class="fixed bottom-4 right-4">
+        <button class="bg-black text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center" id="createPostButton">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+
+    
+    <div class="fixed inset-0 bg-white z-50 hidden" id="createPost">
+        <div class="flex items-center justify-between p-4 border-b border-gray-300">
+            <i class="fas fa-arrow-left text-2xl cursor-pointer" id="createPostBackButton"></i>
+            <h1 class="text-xl font-Quicksand">Create</h1>
+            <button class="border border-black px-4 py-2 rounded-lg" id="submitPostButton">Post</button>
+        </div>
+        <div class="p-4">
+            <textarea class="w-full h-32 p-2 border border-gray-300 rounded-lg mb-2" placeholder="Share your thoughts..." id="postContent"></textarea>
+            <input type="file" id="imageInput" accept="image/*" class="hidden" />
+            <button id="imageUploadButton" class="text-gray-600 p-2 rounded-lg border border-gray-300">
+                <i class="fas fa-image mr-2"></i>Add Image
+            </button>
+            <div id="imagePreview" class="mt-4"></div>
+        </div>
+    </div>
+</div>
+      
+        <div class="fixed inset-0 -z-50">
+            <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <div id="bgLoading" class="absolute inset-0 flex justify-center items-center">
+            </div>
+        </div>
+        
+        
+        <script src="script.js"></script>
+  <script>
+    // Splash Screen Hide
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('splashScreen').classList.add('hide'), 3000));
+
+    // Toggle Mobile Menu
+    function toggleMenu() {
+      document.getElementById("mobile-menu").classList.toggle("show");
+    }
+
+    // About Section Toggle
+    document.getElementById('openAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.remove('hidden'));
+    document.getElementById('closeAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.add('hidden'));
+
+    // Background Load
+    document.addEventListener("DOMContentLoaded", () => {
+      const bgImage = document.getElementById("bgImage");
+      bgImage.src = `/api/background?ts=${Date.now()}`;
+      bgImage.onload = () => bgLoading.style.display = "none";
+    });
+
+    // Banner Slider
+    let currentSlide = 0;
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % 2;
+      document.getElementById('slider').style.transform = `translateX(-${currentSlide * 50}%)`;
+    }, 3000);
+
+    // Events View More Toggle
+    document.getElementById('toggleEventsBtn').addEventListener('click', () => {
+      const container = document.getElementById('eventsContainer');
+      container.classList.toggle('max-h-full');
+    });
+  </script>
+</body>
+</html>
