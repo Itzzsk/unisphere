@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 .then(() => {
   console.log('Connected to MongoDB Atlas');
-  initializeAdmin();
+   initializeAdmin(process.env.ADMIN_USERNAME, process.env.ADMIN_PASSWORD);
 })
 .catch(err => console.error('MongoDB connection error:', err));
 
