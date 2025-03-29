@@ -1,902 +1,952 @@
-
 /* =========================
    Global Reset & Typography
 =========================== */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  color: #000;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  padding: 20px;
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 1000; /* Makes the text bold */
-}
-
-
-
-/* =========================
- Splash Screen
-=========================== */
-#splashScreen {
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-#splashScreen.hide {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* =========================
- Logo Styling
-=========================== */
-.logo {
-  font-size: 34px; /* Adjust as needed */
-  color: #000000; /* Text color */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); 
-  width: 150px; /* Adjust the size */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* Center the logo if needed */
-  position: absolute;
-  top: 25px; /* Distance from the top */
-  left: 20px; /* Distance from the left */
-/* Shadow around the image */
-  border-radius: 8px; /* Optional if your image has edges */
-}
-
-/* =========================
- Menu Icon
-=========================== */
-.menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* =========================
- Background Container
-=========================== */
-#backgroundContainer {
-  background-image: url('/uploads/background.jpg');
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  height: 100vh;
-}
-
-/* =========================
- Header
-=========================== */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-/* =========================
- Mobile Menu
-=========================== */
-#mobile-menu {
-  position: absolute;
-  right: 20px;
-  top: 50px;
-  padding: 10px;
-  width: 130px;
-  border-radius: 10px;
-  z-index: 10;
-}
-nav {
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  width: 90%;
-  background-color: rgb(255, 255, 255); /* Light white background with transparency */
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: none; /* Hide by default */
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-nav ul li a {
-  color: #000;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.show {
-  display: block !important;
-}
-
-/* =========================
- Tabs
-=========================== */
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 30px;
-}
-
-.tab {
-  background: none;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  color: #000;
-  position: relative;
-  z-index: 1;
-}
-
-.tab::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0%;
-  height: 4px;
-  background-color: #000;
-  border-radius: 999px;
-  transition: width 0.3s ease;
-}
-
-.tab.active::after {
-  width: 80%;
-}
-
-/* =========================
- Content Sections
-=========================== */
-.content {
-  display: none;
-  text-align: center;
-}
-
-.content.active {
-  display: block;
-}
-
-/* =========================
- Image Slider
-=========================== */
-.slider-wrapper {
-  position: relative;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  height: 300px;
-  margin: 18px auto;
-  overflow: hidden;
-  border-radius: 30px;
-}
-
-.slider {
-  display: flex;
-  width: calc(200% + 20px);
-  transition: transform 0.8s ease-in-out;
-}
-
-.slide {
-  width: calc(50% - 10px);
-  height: 300px;
-  flex-shrink: 0;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* =========================
- Notes / Projects Grid
-=========================== */
-.notes-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 16px;
-  padding: 10px;
-  font-family: "Quicksand", sans-serif;
-  width: 100%;
-  max-width: 600px; /* Optional: control overall width */
-  margin: 0 auto;
-}
-
-.project {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.project-image {
-  width: 110%;
-  max-width: 120px;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-}
-
-
-/* =========================
- Sidebar Transitions
-=========================== */
-#sidebar {
-  transition: transform 0.3s ease;
-}
-
-#sidebar.hidden {
-  transform: translateX(-100%);
-}
-
-/* About & Create Post Transitions */
-#aboutSection,
-#createPost {
-  transition: opacity 0.3s ease;
-}
-
-#aboutSection.hidden,
-#createPost.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* =========================
- Posts & Cards
-=========================== */
-#postsContainer {
-  padding: 0;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  max-width: 800px;
-}
-
-#postsContainer > div {
-  width: 115%;
-  padding: 16px;
-  border-radius: 12px;
-  background-color: #c5c5c5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-#postsContainer > div:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* =========================
- Buttons & Interactions
-=========================== */
-button,
-.btn {
-  transition: all 0.3s ease !important;
-}
-
-button:hover,
-.btn:hover {
-  transform: scale(1.02);
-}
-
-.like-btn,
-.comment-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  transition: all 0.2s ease;
-}
-
-.like-btn:hover,
-.comment-btn:hover {
-  transform: scale(1.05);
-}
-
-/* =========================
- Input Fields
-=========================== */
-input[type="text"],
-textarea {
-  border: 1px solid #f6e4e4 !important;
-  border-radius: 8px !important;
-  padding: 12px !important;
-  transition: all 0.3s ease;
-}
-
-input[type="text"]:focus,
-textarea:focus {
-  border-color: #94a3b8 !important;
-  box-shadow: 0 2px 8px rgba(148, 163, 184, 0.1) !important;
-}
-/* For tablets and phones */
-/* For tablets and small screens */
-@media (max-width: 768px) {
-
-  body {
-    flex-direction: column;
-  }
-
-  .logo {
-    font-size: 20px;
-    top: 10px;
-    left: 10px;
-    width: 90px;
-  }
-
-  header {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .tabs {
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-
-  .tab {
-    padding: 8px 15px;
-    font-size: 16px;
-  }
-
-  .slider-wrapper,
-  .slide {
-    height: 200px;
-  }
-
-  .notes-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .project {
-    flex: 1 1 calc(33.33% - 20px); /* 3 items per row */
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    margin-bottom: 10px;
   }
-
-  nav {
-    top: 60px;
-    right: 10px;
-    width: 90%;
+  
+  body {
+    color: #000;
+    margin: 0;
+    padding: 20px; /* Removed duplicate padding */
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px; /* Slightly increased font size */
+    font-weight: 500; /* 1000 is too high; 700 is bold & looks better */
   }
-
-  #postsContainer {
-    padding: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  input[type="text"],
-  textarea {
-    padding: 10px !important;
-  }
-
-}
-
-/* For small phones */
-@media (max-width: 480px) {
-
-  nav.show {
-    display: block;
-  }
-
-  .logo {
-    width: 70px; /* Smaller size for mobile */
-    top: 8px; /* Less padding on top */
-    left: 8px; /* Less padding on left */
-  }
-
-  header h1 {
-    font-size: 18px;
-  }
-
-  .tab {
-    font-size: 14px;
-    padding: 6px 10px;
-  }
-
-  .slider-wrapper,
-  .slide {
-    height: 150px;
-  }
-
-  .like-btn,
-  .comment-btn {
-    font-size: 1rem;
-  }
-
-  button[onclick*="toggleCommentSection"] {
-    font-size: 1.2rem;
-    padding: 0 10px;
-  }
-
-}
-
+  
+  /* =========================
+   Logo Styling
+  =========================== */
 
   
-/* =========================
-   Global Reset & Typography
-=========================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  color: #000;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  padding: 20px;
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 1000; /* Makes the text bold */
-}
-
-
-
-/* =========================
- Splash Screen
-=========================== */
-#splashScreen {
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-#splashScreen.hide {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* =========================
- Logo Styling
-=========================== */
-.logo {
-  font-size: 34px; /* Adjust as needed */
-  color: #000000; /* Text color */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); 
-  width: 150px; /* Adjust the size */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* Center the logo if needed */
-  position: absolute;
-  top: 25px; /* Distance from the top */
-  left: 20px; /* Distance from the left */
-/* Shadow around the image */
-  border-radius: 8px; /* Optional if your image has edges */
-}
-
-/* =========================
- Menu Icon
-=========================== */
-.menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* =========================
- Background Container
-=========================== */
-#backgroundContainer {
-  background-image: url('/uploads/background.jpg');
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  height: 100vh;
-}
-
-/* =========================
- Header
-=========================== */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-/* =========================
- Mobile Menu
-=========================== */
+  /* =========================
+   Menu Icon
+  =========================== */
+  .menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* =========================
+   Background Container
+  =========================== */
+  #backgroundContainer {
+    background-image: url('/uploads/background.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  /* =========================
+   Header
+  =========================== */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  /* =========================
+   Mobile Menu
+  =========================== */
+/* Mobile Menu Container */
 #mobile-menu {
   position: absolute;
   right: 20px;
   top: 50px;
+  width: 140px;
   padding: 10px;
-  width: 130px;
   border-radius: 10px;
-  z-index: 10;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  transform: translateX(100%); /* Hidden by default */
+  transition: transform 0.3s ease-in-out; /* Smooth slide animation */
 }
+
+/* Navigation Bar */
 nav {
   position: absolute;
   top: 60px;
   right: 10px;
-  width: 90%;
-  background-color: rgb(255, 255, 255); /* Light white background with transparency */
-  padding: 15px;
+  width: 160px; /* Increased width for better visibility */
+  background-color: rgba(255, 255, 255, 0.98); /* Light transparency */
+  padding: 12px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: none; /* Hide by default */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  display: none; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transform: translateY(-10px);
+  opacity: 0;
+  z-index: 9999; /* Ensuring it's on top */
 }
 
+/* List Styles */
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
 }
 
+/* Button & Link Styling */
+nav ul li button,
 nav ul li a {
   color: #000;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.show {
-  display: block !important;
-}
-
-/* =========================
- Tabs
-=========================== */
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 30px;
-}
-
-.tab {
+  font-size: 15px; /* Slightly increased font size */
+  font-weight: 500; /* Medium weight for better readability */
+  padding: 8px 12px; /* Increased padding */
   background: none;
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
-  color: #000;
-  position: relative;
-  z-index: 1;
+  text-align: left;
+  width: 100%;
+  border-radius: 5px;
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.tab::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0%;
-  height: 4px;
-  background-color: #000;
-  border-radius: 999px;
-  transition: width 0.3s ease;
+/* Hover Effects */
+nav ul li button:hover,
+nav ul li a:hover {
+  background: #f0f0f0;
+  color: #6a5acd; /* Soft purple for modern UI */
 }
 
-.tab.active::after {
-  width: 80%;
+/* Show Menu */
+.show {
+  display: block !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
-/* =========================
- Content Sections
-=========================== */
-.content {
-  display: none;
-  text-align: center;
+
+  /* =========================
+   Tabs
+  =========================== */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 30px;
+  }
+  
+  .tab {
+    background: none;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .tab::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 4px;
+    background-color: #000;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+  
+  .tab.active::after {
+    width: 80%;
+  }
+  
+  /* =========================
+   Content Sections
+  =========================== */
+  .content {
+    display: none;
+    text-align: center;
+  }
+  
+  .content.active {
+    display: block;
+  }
+  
+  /* =========================
+   Image Slider
+  =========================== */
+  .slider-wrapper {
+    position: relative;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    height: 300px;
+    margin: 18px auto;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+  
+  .slider {
+    display: flex;
+    width: calc(200% + 20px);
+    transition: transform 0.8s ease-in-out;
+  }
+  
+  .slide {
+    width: calc(50% - 10px);
+    height: 300px;
+    flex-shrink: 0;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* =========================
+   Notes / Projects Grid
+  =========================== */
+  .notes-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 16px;
+    padding: 10px;
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    max-width: 600px; /* Optional: control overall width */
+    margin: 0 auto;
+  }
+  
+  .project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .project-image {
+    width: 110%;
+    max-width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .project-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  /* =========================
+   Sidebar Transitions
+  =========================== */
+  #sidebar {
+    transition: transform 0.3s ease;
+  }
+  
+  #sidebar.hidden {
+    transform: translateX(-100%);
+  }
+  
+  /* About & Create Post Transitions */
+  #aboutSection,
+  #createPost {
+    transition: opacity 0.3s ease;
+  }
+  
+  #aboutSection.hidden,
+  #createPost.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  #submitPostButton {
+    position: relative;
+    z-index: 10000;
+  }
+  
+  /* =========================
+   Posts & Cards
+  =========================== */
+  #postsContainer {
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 800px;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  #postsContainer > div {
+    width: 115%;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #fffefe;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+  }
+  
+  #postsContainer > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* =========================
+   Buttons & Interactions
+  =========================== */
+  button,
+  .btn {
+    transition: all 0.3s ease !important;
+  }
+  
+  button:hover,
+  .btn:hover {
+    transform: scale(1.02);
+  }
+  
+  .like-btn,
+  .comment-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+  }
+  
+  .like-btn:hover,
+  .comment-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* =========================
+   Input Fields
+  =========================== */
+  input[type="text"],
+  textarea {
+    border: 1px solid #f6e4e4 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #161616 !important;
+    box-shadow: 0 2px 8px rgba(148, 163, 184, 0.1) !important;
+  }
+  /* For tablets and phones */
+  /* For tablets and small screens */
+  @media (max-width: 768px) {
+  
+    body {
+      flex-direction: column;
+    }
+  
+    .logo {
+      font-size: 20px;
+      top: 10px;
+      left: 10px;
+      width: 90px;
+    }
+  
+    header {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .tabs {
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+  
+    .tab {
+      padding: 8px 15px;
+      font-size: 16px;
+    }
+  
+    .slider-wrapper,
+    .slide {
+      height: 200px;
+    }
+  
+    .notes-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    .project {
+      flex: 1 1 calc(33.33% - 20px); /* 3 items per row */
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+  
+    nav {
+      top: 60px;
+      right: 10px;
+      width: 90%;
+    }
+  
+    #postsContainer {
+      padding: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  
+    input[type="text"],
+    textarea {
+      padding: 10px !important;
+    }
+  
+  }
+  
+  /* For small phones */
+  @media (max-width: 480px) {
+  
+    nav.show {
+      display: block;
+    }
+  
+    .logo {
+      width: 70px; /* Smaller size for mobile */
+      top: 8px; /* Less padding on top */
+      left: 8px; /* Less padding on left */
+    }
+  
+    header h1 {
+      font-size: 18px;
+    }
+  
+    .tab {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+  
+    .slider-wrapper,
+    .slide {
+      height: 150px;
+    }
+  
+    .like-btn,
+    .comment-btn {
+      font-size: 1rem;
+    }
+  
+    button[onclick*="toggleCommentSection"] {
+      font-size: 1.2rem;
+      padding: 0 10px;
+    }
+  
+  }
+  
+  
+    
+  /* =========================
+     Global Reset & Typography
+  =========================== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    color: #000;
+    margin: 0;
+    padding: 20px; /* Removed duplicate padding */
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px; /* Slightly increased font size */
+    font-weight: 500; /* 1000 is too high; 700 is bold & looks better */
+  }
+  
+  
+  
+  
+  /* =========================
+   Splash Screen
+  =========================== */
+  
+  /* =========================
+   Logo Styling
+  =========================== */
+  .logo {
+    font-size: 40px; /* Adjust as needed */
+    color: #000000; /* Text color */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); 
+    width: 200px; /* Adjust the size */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the logo if needed */
+    position: absolute;
+    top: 25px; /* Distance from the top */
+    left: 20px; /* Distance from the left */
+  /* Shadow around the image */
+    border-radius: 8px; /* Optional if your image has edges */
+  }
+  
+  /* =========================
+   Menu Icon
+  =========================== */
+
+  
+  /* =========================
+   Background Container
+  =========================== */
+  #backgroundContainer {
+    background-image: url('/uploads/background.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  /* =========================
+   Header
+  =========================== */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  /* =========================
+   Mobile Menu
+  =========================== */
+ /* Menu Button (☰) */
+.menu {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    position:absolute;
+    right: 19px;
+    top: 34px;
+    z-index: 9999;
+  }
+  
+  .menu div {
+    width: 90%;
+    height: 4px;
+    background-color: black;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  /* Rotate to ✖ when active */
+  .menu.active .bar1 {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .menu.active .bar2 {
+    opacity: 0;
+  }
+  
+  .menu.active .bar3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  
+  /* Half-Screen Menu */
+  /* Half-Screen Menu */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 40%; /* Half Screen */
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    justify-content: flex-start; /* Start from the top */
+    padding: 20px;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Close Button (X) */
+  #mobile-menu .close-btn {
+    align-self: flex-end;
+    font-size: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  /* Navigation Menu */
+  #mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    margin-top: 40px; /* Adds space below the close button */
+  }
+  
+  #mobile-menu li {
+    padding: 3px 10px;
+  }
+  
+  #mobile-menu button {
+    text-align: left;
+    font-size: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* =========================
+   Tabs
+  =========================== */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 30px;
+  }
+  
+  .tab {
+    background: none;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .tab::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 4px;
+    background-color: #000;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+  
+  .tab.active::after {
+    width: 80%;
+  }
+  
+  /* =========================
+   Content Sections
+  =========================== */
+  .content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .content.active {
-  display: block;
+    display: block;
 }
 
-/* =========================
- Image Slider
-=========================== */
-.slider-wrapper {
-  position: relative;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  height: 300px;
-  margin: 18px auto;
-  overflow: hidden;
-  border-radius: 30px;
+.fade-in {
+    opacity: 1;
 }
 
-.slider {
-  display: flex;
-  width: calc(200% + 20px);
-  transition: transform 0.8s ease-in-out;
-}
-
-.slide {
-  width: calc(50% - 10px);
-  height: 300px;
-  flex-shrink: 0;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* =========================
- Notes / Projects Grid
-=========================== */
-.notes-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 16px;
-  padding: 10px;
-  font-family: "Quicksand", sans-serif;
-  width: 100%;
-  max-width: 600px; /* Optional: control overall width */
-  margin: 0 auto;
-}
-
-.project {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.project-image {
-  width: 110%;
-  max-width: 120px;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-}
-
-
-/* =========================
- Sidebar Transitions
-=========================== */
-#sidebar {
-  transition: transform 0.3s ease;
-}
-
-#sidebar.hidden {
-  transform: translateX(-100%);
-}
-
-/* About & Create Post Transitions */
-#aboutSection,
-#createPost {
-  transition: opacity 0.3s ease;
-}
-
-#aboutSection.hidden,
-#createPost.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* =========================
- Posts & Cards
-=========================== */
-#postsContainer {
-  padding: 0;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  max-width: 800px;
-}
-
-#postsContainer > div {
-  width: 115%;
-  padding: 16px;
-  border-radius: 12px;
-  background-color: #c5c5c5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-#postsContainer > div:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* =========================
- Buttons & Interactions
-=========================== */
-button,
-.btn {
-  transition: all 0.3s ease !important;
-}
-
-button:hover,
-.btn:hover {
-  transform: scale(1.02);
-}
-
-.like-btn,
-.comment-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  transition: all 0.2s ease;
-}
-
-.like-btn:hover,
-.comment-btn:hover {
-  transform: scale(1.05);
-}
-
-/* =========================
- Input Fields
-=========================== */
-input[type="text"],
-textarea {
-  border: 1px solid #f6e4e4 !important;
-  border-radius: 8px !important;
-  padding: 12px !important;
-  transition: all 0.3s ease;
-}
-
-input[type="text"]:focus,
-textarea:focus {
-  border-color: #94a3b8 !important;
-  box-shadow: 0 2px 8px rgba(148, 163, 184, 0.1) !important;
-}
-/* For tablets and phones */
-/* For tablets and small screens */
-@media (max-width: 768px) {
-
-  body {
-    flex-direction: column;
-  }
-
-  .logo {
-    font-size: 20px;
-    top: 10px;
-    left: 10px;
-    width: 90px;
-  }
-
-  header {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .tabs {
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-
-  .tab {
-    padding: 8px 15px;
-    font-size: 16px;
-  }
-
-  .slider-wrapper,
-  .slide {
-    height: 200px;
-  }
-
-  .notes-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .project {
-    flex: 1 1 calc(33.33% - 20px); /* 3 items per row */
-    box-sizing: border-box;
-    margin-bottom: 10px;
-  }
-
-  nav {
-    top: 60px;
-    right: 10px;
-    width: 90%;
-  }
-
-  #postsContainer {
-    padding: 1rem;
+  
+  /* =========================
+   Image Slider
+  =========================== */
+  .slider-wrapper {
+    position: relative;
+    align-items: center;
+    width: 100%;
     max-width: 800px;
+    height: 300px;
+    margin: 18px auto;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+  
+  .slider {
+    display: flex;
+    width: calc(200% + 20px);
+    transition: transform 0.8s ease-in-out;
+  }
+  
+  .slide {
+    width: calc(50% - 10px);
+    height: 300px;
+    flex-shrink: 0;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* =========================
+   Notes / Projects Grid
+  =========================== */
+  .notes-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 16px;
+    padding: 10px;
+
+    width: 100%;
+    max-width: 600px; /* Optional: control overall width */
     margin: 0 auto;
   }
-
-  input[type="text"],
-  textarea {
-    padding: 10px !important;
+  
+  .project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
-}
-
-/* For small phones */
-@media (max-width: 480px) {
-
-  nav.show {
-    display: block;
+  
+  .project-image {
+    width: 110%;
+    max-width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
-  .logo {
-    width: 70px; /* Smaller size for mobile */
-    top: 8px; /* Less padding on top */
-    left: 8px; /* Less padding on left */
+  
+  .project-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   }
-
-  header h1 {
-    font-size: 18px;
+  
+  
+  /* =========================
+   Sidebar Transitions
+  =========================== */
+  #sidebar {
+    transition: transform 0.3s ease;
   }
-
-  .tab {
-    font-size: 14px;
-    padding: 6px 10px;
+  
+  #sidebar.hidden {
+    transform: translateX(-100%);
   }
-
-  .slider-wrapper,
-  .slide {
-    height: 150px;
+  
+  /* About & Create Post Transitions */
+  #aboutSection,
+  #createPost {
+    transition: opacity 0.3s ease;
+    z-index: 10000;
   }
-
+  
+  #aboutSection.hidden,
+  #createPost.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /* =========================
+   Posts & Cards
+  =========================== */
+  #postsContainer {
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 800px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  #postsContainer > div {
+    width: 115%;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #fff8f8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  #postsContainer > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* =========================
+   Buttons & Interactions
+  =========================== */
+  button,
+  .btn {
+    transition: all 0.3s ease !important;
+  }
+  
+  button:hover,
+  .btn:hover {
+    transform: scale(1.02);
+  }
+  
   .like-btn,
   .comment-btn {
-    font-size: 1rem;
-  }
-
-  button[onclick*="toggleCommentSection"] {
+    cursor: pointer;
+    background: none;
+    border: none;
     font-size: 1.2rem;
-    padding: 0 10px;
+    transition: all 0.2s ease;
   }
-
-}
+  
+  .like-btn:hover,
+  .comment-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* =========================
+   Input Fields
+  =========================== */
+  input[type="text"],
+  textarea {
+    border: 1px solid #f6e4e4 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #94a3b8 !important;
+    box-shadow: 0 2px 8px rgba(148, 163, 184, 0.1) !important;
+  }
+  /* For tablets and phones */
+  /* For tablets and small screens */
+  @media (max-width: 768px) {
+  
+    body {
+      flex-direction: column;
+    }
+  
+    .logo {
+      font-size: 20px;
+      top: 10px;
+      left: 10px;
+      width: 90px;
+    }
+  
+    header {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .tabs {
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+  
+    .tab {
+      padding: 8px 15px;
+      font-size: 16px;
+    }
+  
+    .slider-wrapper,
+    .slide {
+      height: 200px;
+    }
+  
+    .notes-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    .project {
+      flex: 1 1 calc(33.33% - 20px); /* 3 items per row */
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+  
+    nav {
+      top: 60px;
+      right: 10px;
+      width: 90%;
+    }
+  
+    #postsContainer {
+      padding: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  
+    input[type="text"],
+    textarea {
+      padding: 10px !important;
+    }
+  
+  }
+  
+  /* For small phones */
+  @media (max-width: 480px) {
+  
+    nav.show {
+      display: block;
+    }
+  
+    .logo {
+      width: 70px; /* Smaller size for mobile */
+      top: 8px; /* Less padding on top */
+      left: 8px; /* Less padding on left */
+    }
+  
+    header h1 {
+      font-size: 18px;
+    }
+  
+    .tab {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+  
+    .slider-wrapper,
+    .slide {
+      height: 150px;
+    }
+  
+    .like-btn,
+    .comment-btn {
+      font-size: 1rem;
+    }
+  
+    button[onclick*="toggleCommentSection"] {
+      font-size: 1.2rem;
+      padding: 0 10px;
+    }
+  
+  }
