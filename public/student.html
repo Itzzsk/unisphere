@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Check</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="astyles.css"> <!-- Link to external CSS -->
+        <script>
+            async function fetchAttendance() {
+                const studentID = document.getElementById("studentID").value.trim();
+                const resultDiv = document.getElementById("attendance-result");
+        
+                if (!studentID) {
+                    resultDiv.innerHTML = "<p class='error'>Please enter a Student ID.</p>";
+                    return;
+                }
+        
+                resultDiv.innerHTML = "<p class='loading'>Fetching data...</p>"; // Show loading state
+        
+                try {
+                    const response = await fetch(`http://localhost:9000/student/attendance/${encodeURIComponent(studentID)}`);
+        
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch data");
+                    }
+        
+                    const student = await response.json();
+                    console.log("Student Data:", student); // Debugging log
+        
+                    if (!student || !student.subjects) {
+                        throw new Error("Invalid response format");
+                    }
+        
+                    let resultHTML = `<h3>Attendance for ${student.name} (${student.studentID})</h3>`;
+                    Object.keys(student.subjects).forEach(subject => {
+                        let data = student.subjects[subject];
+                        let percentage = (data.totalClasses > 0) 
+                            ? ((data.attendedClasses / data.totalClasses) * 100).toFixed(2) 
+                            : "N/A"; // Avoid division by zero
+                        
+                        let colorClass = (percentage !== "N/A" && percentage < 75) ? 'low-attendance' : 'high-attendance';
+        
+                        resultHTML += `<p><strong>${subject}</strong>: <span class="${colorClass}">${data.attendedClasses} / ${data.totalClasses} (${percentage}%)</span></p>`;
+                    });
+        
+                    resultDiv.innerHTML = resultHTML;
+                    resultDiv.classList.add("fade-in"); // Add animation
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                    resultDiv.innerHTML = "<p class='error'>Error fetching data. Please try again.</p>";
+                }
+            }
+        </script>
+        
+        <style>
+            .low-attendance { color: red; font-weight: bold; }
+            .high-attendance { color: green; font-weight: bold; }
+        </style>
+        
+</head>
+<body>
+    <div class="container">
+        <h2>Student Attendance Check</h2>
+        <input type="text" id="studentID" placeholder="Enter Student ID">
+        <button onclick="fetchAttendance()">Check Attendance</button>
+        <div id="attendance-result" class="result-box"></div>
+    </div>
+
+    <!-- Close Button Outside the Box -->
+    <button id="closeAbout" class="mt-6 bg-black text-white px-4 py-2 rounded">Close</button>
+    <script>
+        document.getElementById("closeAbout").addEventListener("click", function() {
+            window.location.href = "index.html"; // Redirects back to index.html
+        });
+    </script>
+
+</body>
+</html>
