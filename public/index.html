@@ -12,20 +12,21 @@
       theme: {
         extend: {
           fontFamily: {
-            karla: ['Karla', 'sans-serif'],
+            poppins: ["Poppins", "sans-serif"],
           },
         },
       },
-    }
+    };
   </script>
 
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-  <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&family=Lexend:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Favicon (Optional, Add Your Icon) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -33,22 +34,30 @@
   <div class="fixed inset-0 -z-50">
     <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
     <div id="bgLoading" class="absolute inset-0 flex justify-center items-center"></div>
-  </div>
+  </div>
 
   <!-- Header -->
   <header class="container">
-    <img src="logo1.png" alt="UniSphere Logo" class="logo">
-    <div class="menu" onclick="toggleMenu()">&#9776;</div>
-    <nav id="mobile-menu" class="hidden">
+    <img src="logo2.png" alt="UniSphere Logo" class="logo">
+    <div class="menu" onclick="toggleMenu()">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+    
+    <nav id="mobile-menu">
       <ul>
         <li><button id="openAbout">About</button></li>
         <li><button onclick="window.location.href='admin.html'">Admin Login</button></li>
+        <li><button onclick="window.location.href='student.html'">Attendance Tracker</button></li>
       </ul>
     </nav>
+    
+    
   </header>
 
   <!-- Tabs -->
-  <div class="tabs font-Big Shoulders Inline text-2xl">
+  <div class="tabs font-poppins Inline text-2xl">
     <button class="tab" data-tab="for-you">For You</button>
     <button class="tab" data-tab="explore">Explore</button>
   </div>
@@ -56,8 +65,10 @@
   <!-- About Section -->
   <div id="aboutSection" class="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center p-8 hidden z-50">
     <h1 class="text-3xl font-karla mb-4">About UniSphere 🚀</h1>
-    <p class="text-center text-lg max-w-xl font-nunito">Welcome to our official college platform built for students, by students. This is your space to share honest thoughts, anonymous confessions, and connect with the campus community in a real and relatable way. Whether you're here to speak your mind, read what others are thinking, or simply stay updated on campus buzz, this platform is designed to keep things open, engaging, and fun.
-      Our goal is to create a space where everyone's voice matters, conversations stay active, and the community feels more connected than ever. Let's keep it real and build something amazing together – one confession, like, and comment at a time.    </p>
+    <p class="text-center text-lg max-w-xl font-nunito">
+      Welcome to our official college platform built for students, by students. This is your space to share honest thoughts, anonymous confessions, and connect with the campus community in a real and relatable way. 
+      Whether you're here to speak your mind, read what others are thinking, or simply stay updated on campus buzz, this platform is designed to keep things open, engaging, and fun.
+    </p>
     <a href="https://www.instagram.com/bca.ahl" target="_blank" class="mt-6 text-pink-600 text-3xl">
       <i class="fab fa-instagram"></i>
     </a>
@@ -74,9 +85,8 @@
 
   <!-- For You Section -->
   <div id="for-you" class="content">
-    <!-- Notes and QPs -->
                 
-                <h2 class="text-2xl font-Quicksand mb-4">Notes and Qps</h2>
+                <h2 class="text-2xl font-poppins mb-4">Notes and Qps</h2>
             <div class="notes-row">
 
             <div class="project">
@@ -114,50 +124,103 @@
                 </a>
             </div>
             </div>
-            <div class="mt-10 px-4">
-                <h2 class="text-2xl font-Quicksand text-center mb-8">Upcoming Events</h2>
-              
-                <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-h-[500px] overflow-hidden transition-all duration-500">
-              
-                  <!-- Event 1 -->
-             <!-- Event Card -->
-             <div class="relative">
-                <div id="eventCard" class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
-                  <img src="event1.jpg" alt="Event Thumbnail" class="w-full h-40 object-cover">
-                  <div class="p-4">
-                    <h3 class="text-xl font-Quicksand mb-2">Kalanjali</h3>
-                    <p class="text-gray-600 font-Quicksand">🎭 Get Ready for the Ultimate Showdown! 🎤💃</p>
-                  </div>
-                </div>
-              
-                <!-- Full Image Modal -->
-                <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
-                  <div class="relative">
-                    <img src="event1.jpg" alt="Full Event Image" class="max-w-full max-h-screen rounded-lg">
-                    <button id="closeModal" class="absolute top-3 right-3 bg-white w-10 h-10 flex items-center justify-center rounded-lg shadow-md">
-                        <span class="text-black text-xl">✕</span>
-                      </button>
-                      
-                  </div>
-                </div>
+            <div class="max-w-md mx-auto mt-10 p-4 bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl">
+              <!-- Header -->
+              <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-md">
+                  <span class="font-Poppins text-lg text-gray-800">UniAI Chat</span>
+                  <button onclick="clearChat()" 
+                          class="text-sm bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
+                      Clear
+                  </button>
               </div>
-                
-                          <!-- Add more events here if needed -->
-                          <!-- Hidden events can go here if you want to reveal them on "View All" -->
+          
+              <!-- Chatbox -->
+              <div id="chatbox" class="p-4 h-80 overflow-y-auto space-y-3 flex-1 text-black">
+                  <div class="text-gray-500 text-sm text-center">Start a conversation...</div>
+              </div>
+          
+              <!-- Input Section (Black & White) -->
+              <div class="flex flex-wrap items-center border-t border-gray-200 p-3 bg-white rounded-b-xl shadow-md gap-2">
+                  <input id="userInput" type="text" placeholder="Ask UniAI anything.... " 
+                         class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black w-full sm:w-auto text-black placeholder-gray-600">
+                  <button onclick="sendMessage()" 
+                          class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition shadow-md">
+                      Send
+                  </button>
+              </div>
+          </div>
+          
                       
-                        </div>
-                      
-                        <!-- Toggle Button -->
-                        <div class="mt-8 text-center">
-                            <button id="toggleEventsBtn" class="inline-block bg-black text-white px-2 py-1 rounded-full text-xs font-Quicksand hover:bg-gray-800 transition">
-                                View More
-                              </button>
-                              
-                        </div>
-                      </div>
-                      
-        </div>
+                    </div>
         <script>
+          function sendMessage() {
+            const userInput = document.getElementById("userInput");
+            const userMessage = userInput.value.trim();
+            if (!userMessage) return;
+
+            const chatbox = document.getElementById("chatbox");
+
+            // Append user message
+            chatbox.innerHTML += `
+                <div class="flex justify-end">
+                  <div class="bg-black text-white px-4 py-2 rounded-lg max-w-xs">${userMessage}</div>
+
+                </div>
+            `;
+
+            userInput.value = ""; // Clear input field
+            scrollToBottom(); // Auto-scroll to bottom
+
+            // Show loading message
+            const loadingElement = document.createElement("div");
+            loadingElement.id = "loading";
+            loadingElement.className = "flex justify-start";
+            loadingElement.innerHTML = `<div class=" text-gray-700 px-4 py-2 rounded-lg max-w-xs">Thinking...</div>`;
+            chatbox.appendChild(loadingElement);
+            scrollToBottom(); // Ensure auto-scroll
+
+            // Simulate API response after delay
+            setTimeout(async () => {
+                // Fetch AI response
+                const response = await fetch('http://localhost:5000/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                const data = await response.json();
+
+                // Remove loading message
+                document.getElementById("loading").remove();
+
+                // Append bot response
+                chatbox.innerHTML += `
+                    <div class="flex justify-start">
+                      <div class="text-black px-4 py-2 rounded-lg max-w-xs border text-left">
+                        ${data.reply}
+                    </div>
+                    
+                    </div>
+                `;
+
+                scrollToBottom(); // Auto-scroll again
+            }, 1000);
+        }
+
+        function scrollToBottom() {
+            const chatbox = document.getElementById("chatbox");
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function clearChat() {
+            document.getElementById("chatbox").innerHTML = `<div class="text-gray-400 text-sm text-center">Chat cleared...</div>`;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
           // Modal logic
           const eventCard = document.getElementById('eventCard');
           const imageModal = document.getElementById('imageModal');
@@ -228,14 +291,25 @@
         
         <script src="script.js"></script>
   <script>
-    // Splash Screen Hide
-    window.addEventListener('load', () => setTimeout(() => document.getElementById('splashScreen').classList.add('hide'), 3000));
-
-    // Toggle Mobile Menu
     function toggleMenu() {
-      document.getElementById("mobile-menu").classList.toggle("show");
-    }
-
+      const menu = document.getElementById("mobile-menu");
+      const menuIcon = document.querySelector(".menu");
+  
+      // Toggle the 'show' class for smooth animations
+      menu.classList.toggle("show");
+      menuIcon.classList.toggle("active");
+  
+      // Ensuring smooth transition
+      if (menu.classList.contains("show")) {
+          menu.style.transform = "translateX(0%)";
+      } else {
+          menu.style.transform = "translateX(100%)";
+      }
+  }
+  
+    
+    
+    
     // About Section Toggle
     document.getElementById('openAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.remove('hidden'));
     document.getElementById('closeAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.add('hidden'));
@@ -254,11 +328,7 @@
       document.getElementById('slider').style.transform = `translateX(-${currentSlide * 50}%)`;
     }, 3000);
 
-    // Events View More Toggle
-    document.getElementById('toggleEventsBtn').addEventListener('click', () => {
-      const container = document.getElementById('eventsContainer');
-      container.classList.toggle('max-h-full');
-    });
+  
   </script>
 </body>
 </html>
