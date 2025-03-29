@@ -63,6 +63,8 @@ const connectDB = async () => {
   }
 };
 connectDB();
+// ✅ Middleware
+app.use(express.json()); // Allow JSON request body
 // Routes
 app.use("/api/students", studentRoutes);
 
@@ -269,23 +271,24 @@ app.post("/api/chat", async (req, res) => {
       return res.status(400).json({ error: "Message is required" });
     }
 
-    // Check for specific questions and provide custom responses
+    // ✅ Custom response for specific queries
     let reply;
     if (message.toLowerCase().includes("who created you") || message.toLowerCase().includes("who is the owner of uniai")) {
       reply = "Skanda is the owner and creator of UniAI.";
     } else {
+      // ✅ Send request to Google Gemini API
       const response = await axios.post(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
         { contents: [{ parts: [{ text: message }] }] }
       );
 
-      reply =
-        response.data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+      reply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
     }
 
-    return res.json({ reply: `UniAI: ${reply}` }); // Ensure response includes "UniAI:"
+    return res.json({ reply: `UniAI: ${reply}` });
   } catch (error) {
     console.error("🔥 UniAI API Error:", error.response?.data || error.message);
+    
     if (!res.headersSent) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
@@ -293,9 +296,14 @@ app.post("/api/chat", async (req, res) => {
 });
 
 // =========================================
-// ✅ Server Start
+// ✅ Serve Frontend
 // =========================================
-app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+app.use(express.static("public"));
+app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
+
+// =========================================
+// ✅ Handle 404 Errors
+// =========================================
 app.use((req, res) => res.status(404).json({ message: "❌ Route Not Found" }));
 
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
