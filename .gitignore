@@ -1,1 +1,16 @@
-.env
+# Server Port
+PORT=5000
+ADMIN_USERNAME=itzzsk
+ADMIN_PASSWORD_HASH=$2b$10$AOh7uV86ip7Vlwikkrh84OURmvz2HxcAEoqPmp1ojYCp9Cti/1QNG
+JWT_SECRET= 4b4ce76c5042a80d050e9ec0c3563435b818ec31f3069a7e90d22aea2d0d4d64
+MONGO_URI_UNISPHERE=mongodb+srv://supracar65:y8y8TUrAjwrMcxRV@cluster0.2zzve.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0
+# MongoDB Connection String
+
+# Cloudinary Credentials
+CLOUDINARY_CLOUD_NAME=dne3zj4mc
+CLOUDINARY_API_KEY=646158285495921
+CLOUDINARY_API_SECRET=zIM0Q88T7ppA9e312pD6bn7k0CE
+ 
+GEMINI_API_KEY=AIzaSyBCS9wyck3ApyUDWTI-PF1-7z7q0zhE7Pk
+
+MONGO_URI_ATTENDANCE=mongodb+srv://supracar65:y8y8TUrAjwrMcxRV@cluster0.2zzve.mongodb.net/attendance?retryWrites=true&w=majority&appName=Cluster0
