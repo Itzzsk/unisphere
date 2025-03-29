@@ -8,17 +8,21 @@ const streamifier = require('streamifier');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const axios = require("axios");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
-
+const studentRoutes = require("./routes/studentRoutes");
 // 🔹 Serve static files
 app.use(express.static('public'));
 
 // 🔹 CORS Configuration
 app.use(cors({
-  origin: ['http://localhost:5000', 'https://res.cloudinary.com', 'https://unisphere.onrender.com'],
+  origin: [
+    'http://localhost:5000', // Backend itself (not needed in most cases)
+    'https://unisphere.onrender.com', // Your deployed frontend
+    'https://res.cloudinary.com' // If making requests to Cloudinary from the backend
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -38,13 +42,37 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // 🔹 MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('✅ Connected to MongoDB Atlas');
-}).catch(err => console.error('❌ MongoDB connection error:', err));
+// 🔹 MongoDB Connection
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI_UNISPHERE, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("✅ MongoDB (Unisphere) Connected Successfully");
 
+    // Connect to Attendance Database
+    global.attendanceDB = mongoose.createConnection(process.env.MONGO_URI_ATTENDANCE, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("✅ MongoDB (Attendance) Connected Successfully");
+  } catch (error) {
+    console.error("❌ MongoDB Connection Error:", error.message);
+    process.exit(1);
+  }
+};
+connectDB();
+// Routes
+app.use("/api/students", studentRoutes);
+
+// Default Route
+app.get('/', (req, res) => {
+    res.send('✅ Attendance Management API is running');
+});
+
+// Handle Undefined Routes
+ 
 // =========================================
 // ✅ Admin Login System
 // =========================================
@@ -75,18 +103,12 @@ app.post('/api/admin/login', async (req, res) => {
   }
 });
 
-// 🔹 Middleware to Verify JWT Token
-const verifyAdmin = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
+const BackgroundSchema = new mongoose.Schema({
+  imageUrl: { type: String, required: true },
+  updatedAt: { type: Date, default: Date.now }
+});
+const Background = mongoose.model("Background", BackgroundSchema);
 
-  if (!token) return res.status(401).json({ message: "Unauthorized" });
-
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(403).json({ message: "Invalid token" });
-    req.admin = decoded;
-    next();
-  });
-};
 app.post('/api/upload/background', upload.single('background'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -104,19 +126,19 @@ app.post('/api/upload/background', upload.single('background'), async (req, res)
 });
 
 // Fetch Background
-app.get('/api/background', async (req, res) => {
+app.get("/api/background", async (req, res) => {
   try {
-    const background = await Background.findOne();
-    if (!background) return res.status(404).json({ error: "No background found" });
-
-    res.set('Content-Type', background.contentType);
-    res.send(background.image);
-  } catch (err) {
-    console.error("Failed to fetch background:", err);
+    console.log("🔍 Fetching background image...");
+    const background = await Background.findOne();  // Ensure 'Background' is correct
+    if (!background) {
+      return res.status(404).json({ error: "No background image found" });
+    }
+    res.status(200).json({ imageUrl: background.imageUrl });
+  } catch (error) {
+    console.error("❌ Failed to fetch background:", error.message);
     res.status(500).json({ error: "Failed to fetch background" });
   }
 });
-// =========================================
 // ✅ Schemas & Models
 // =========================================
 const postSchema = new mongoose.Schema({
@@ -134,7 +156,7 @@ const Post = mongoose.model('Post', postSchema);
 // =========================================
 // ✅ Image Upload Route (Multer + Cloudinary)
 // =========================================
-app.post('/api/upload/post', verifyAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/upload/post', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'No image uploaded' });
 
@@ -154,32 +176,41 @@ app.post('/api/upload/post', verifyAdmin, upload.single('image'), async (req, re
 });
 
 // =========================================
-// ✅ Fetch All Posts with Comments
-// =========================================
-app.get('/api/posts', async (req, res) => {
-  try {
-    const posts = await Post.find().sort({ createdAt: -1 });
-    res.json(posts);
-  } catch (error) {
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// =========================================
 // ✅ Add a New Post (Admin Only)
 // =========================================
-app.post('/api/posts', verifyAdmin, async (req, res) => {
+app.post('/api/posts', async (req, res) => {
   try {
     const { content, imageUrl } = req.body;
-    if (!content && !imageUrl) return res.status(400).json({ message: 'Post requires text or image' });
+    if (!content && !imageUrl) {
+      return res.status(400).json({ message: 'Post requires text or image' });
+    }
 
     const newPost = new Post({ content, imageUrl });
     await newPost.save();
+    
     res.status(201).json({ message: 'Post created successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error creating post' });
   }
 });
+
+app.get('/api/posts', async (req, res) => {
+  try {
+    console.log("🔍 Fetching posts..."); // Debugging log
+    const posts = await Post.find().sort({ createdAt: -1 });
+    
+    if (!posts || posts.length === 0) {
+      return res.status(404).json({ message: "No posts found" });
+    }
+    
+    res.json(posts);
+  } catch (error) {
+    console.error("❌ Error fetching posts:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 // =========================================
 // ✅ Like a Post
@@ -229,11 +260,42 @@ app.get('/api/posts/:postId/comments', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch comments' });
   }
 });
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // Ensure it's stored correctly
+
+app.post("/api/chat", async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+
+    // Check for specific questions and provide custom responses
+    let reply;
+    if (message.toLowerCase().includes("who created you") || message.toLowerCase().includes("who is the owner of uniai")) {
+      reply = "Skanda is the owner and creator of UniAI.";
+    } else {
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+        { contents: [{ parts: [{ text: message }] }] }
+      );
+
+      reply =
+        response.data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+    }
+
+    return res.json({ reply: `UniAI: ${reply}` }); // Ensure response includes "UniAI:"
+  } catch (error) {
+    console.error("🔥 UniAI API Error:", error.response?.data || error.message);
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+});
 
 // =========================================
 // ✅ Server Start
 // =========================================
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+app.use((req, res) => res.status(404).json({ message: "❌ Route Not Found" }));
 
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
-
