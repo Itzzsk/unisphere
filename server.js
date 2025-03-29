@@ -13,6 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const studentRoutes = require("./routes/studentRoutes");
+const customResponses = require("./responses"); 
 // 🔹 Serve static files
 app.use(express.static('public'));
 
@@ -263,37 +264,40 @@ app.get('/api/posts/:postId/comments', async (req, res) => {
   }
 });
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // Ensure it's stored correctly
-
 app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
+    
     if (!message) {
       return res.status(400).json({ error: "Message is required" });
     }
 
-    // ✅ Custom response for specific queries
-    let reply;
-    if (message.toLowerCase().includes("who created you") || message.toLowerCase().includes("who is the owner of uniai")) {
-      reply = "Skanda is the owner and creator of UniAI.";
-    } else {
-      // ✅ Send request to Google Gemini API
-      const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-        { contents: [{ parts: [{ text: message }] }] }
-      );
+    const lowerCaseMessage = message.toLowerCase().trim();
 
-      reply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+    // ✅ Check if message exists in customResponses (case-insensitive)
+    if (customResponses[lowerCaseMessage]) {
+      return res.json({ reply: `UniAI: ${customResponses[lowerCaseMessage]}` });
     }
 
+    // ✅ Otherwise, send request to Google Gemini API
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      { contents: [{ parts: [{ text: message }] }] },
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    const reply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
     return res.json({ reply: `UniAI: ${reply}` });
+
   } catch (error) {
     console.error("🔥 UniAI API Error:", error.response?.data || error.message);
-    
+
     if (!res.headersSent) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 });
+
 
 // =========================================
 // ✅ Serve Frontend
