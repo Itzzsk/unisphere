@@ -127,7 +127,7 @@
             <div class="max-w-md mx-auto mt-10 p-4 bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl">
               <!-- Header -->
               <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-md">
-                  <span class="font-Poppins text-lg text-gray-800">UniAI Chat</span>
+                  <span class="font-Poppins text-lg text-gray-800 font-semibold">UniAI Chat</span>
                   <button onclick="clearChat()" 
                           class="text-sm bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
                       Clear
@@ -135,20 +135,20 @@
               </div>
           
               <!-- Chatbox -->
-              <div id="chatbox" class="p-4 h-80 overflow-y-auto space-y-3 flex-1 text-black">
+              <div id="chatbox" class="p-4 h-80 overflow-y-auto space-y-3 text-black scroll-smooth flex flex-col">
                   <div class="text-gray-500 text-sm text-center">Start a conversation...</div>
               </div>
           
-              <!-- Input Section (Black & White) -->
-              <div class="flex flex-wrap items-center border-t border-gray-200 p-3 bg-white rounded-b-xl shadow-md gap-2">
-                  <input id="userInput" type="text" placeholder="Ask UniAI anything.... " 
-                         class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black w-full sm:w-auto text-black placeholder-gray-600">
+              <!-- Input Section -->
+              <div class="flex items-center border-t border-gray-200 p-3 bg-white rounded-b-xl shadow-md gap-2">
+                  <input id="userInput" type="text" placeholder="Ask UniAI anything..." 
+                         class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 text-black placeholder-gray-600">
                   <button onclick="sendMessage()" 
                           class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition shadow-md">
                       Send
                   </button>
               </div>
-          </div>
+          </div> 
           
                       
                     </div>
@@ -196,7 +196,7 @@
                 // Append bot response
                 chatbox.innerHTML += `
                     <div class="flex justify-start">
-                      <div class="text-black px-4 py-2 rounded-lg max-w-xs border text-left">
+                      <div class="text-black px-4 py-2 rounded-lg max-w-xs text-left">
                         ${data.reply}
                     </div>
                     
