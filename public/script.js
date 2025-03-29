@@ -3,31 +3,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const contents = document.querySelectorAll(".content");
 
     function activateTab(tabName) {
+        if (!document.getElementById(tabName)) {
+            tabName = "for-you"; // Default to 'For You' if invalid tab
+        }
+
         tabs.forEach(tab => tab.classList.remove("active"));
-        contents.forEach(content => {
-            content.classList.remove("active", "fade-in");
-        });
+        contents.forEach(content => content.classList.remove("active", "fade-in"));
 
         document.querySelector(`.tab[data-tab="${tabName}"]`)?.classList.add("active");
         const activeContent = document.getElementById(tabName);
         if (activeContent) {
-            activeContent.classList.add("active", "fade-in"); // Add fade-in effect
+            activeContent.classList.add("active", "fade-in");
         }
+
+        history.replaceState(null, null, `#${tabName}`); // Updates URL without adding to history
     }
 
     tabs.forEach(tab => {
         tab.addEventListener("click", function () {
             const tabName = this.getAttribute("data-tab");
-            activateTab(tabName);
-            history.pushState(null, null, `#${tabName}`); // Smooth URL update
+            if (window.location.hash.substring(1) !== tabName) {
+                activateTab(tabName);
+            }
         });
     });
 
-    // Activate tab from URL hash if available
-    const hash = window.location.hash.substring(1); // Remove the #
-    activateTab(hash || 'for-you'); // Default tab
+    // Set default or hash-based tab on page load
+    const hash = window.location.hash.substring(1);
+    activateTab(hash || "for-you"); // Defaults to 'For You'
 
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const menuButton = document.getElementById("menuButton");
@@ -159,8 +165,7 @@ async function fetchPosts() {
         if (!response.ok) throw new Error('Failed to fetch posts');
         const posts = await response.json();
         const postsContainer = document.getElementById('postsContainer');
-        window.location.hash = "explore";
-
+       
         // Update the post template in fetchPosts()
         postsContainer.innerHTML = posts.map(post => `
             <div class="bg-white p-3 rounded-2xl  shadow-lg  mb-4">
@@ -353,9 +358,6 @@ async function fetchComments(postId) {
         console.error('Error fetching comments:', error);
     }
 }
-
-
-
 
 document.addEventListener("DOMContentLoaded", async function () {
     let bgImage = document.getElementById("bgImage");
