@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>UniSphere</title>
 
   <!-- Tailwind CSS -->
@@ -14,283 +14,570 @@
           fontFamily: {
             poppins: ["Poppins", "sans-serif"],
           },
+          colors: {
+            darkgreenbg:'#1F2A25',
+          },
         },
       },
     };
   </script>
+  
 
-  <!-- Font Awesome for icons -->
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- External CSS -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Favicon (Optional, Add Your Icon) -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="demo.css">
 </head>
+<body class="font-poppins bg-[#1F2A25] text-white relative overflow-x-hidden">
+<!-- Header -->
+<header class="p-4 flex justify-between items-center bg-[#1C1F24] shadow-md border-b border-[#2A2D33] text-white relative z-50">
+  <h1 class="text-xl font-['Press_Start_2P'] text-[#B3FF59]">UniSphere</h1>
 
-<body>
-  <!-- Background Image -->
-  <div class="fixed inset-0 -z-50">
-    <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
-    <div id="bgLoading" class="absolute inset-0 flex justify-center items-center"></div>
+  <!-- Hamburger Toggle Button -->
+  <div class="menu" onclick="toggleMenu()">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
   </div>
 
-  <!-- Header -->
-  <header class="container">
-    <img src="logo2.png" alt="UniSphere Logo" class="logo">
-    <div class="menu" onclick="toggleMenu()">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-      <div class="bar3"></div>
-    </div>
-    
-    <nav id="mobile-menu">
-      <ul>
-        <li><button id="openAbout">About</button></li>
-        <li><button onclick="window.location.href='admin.html'">Admin Login</button></li>
-        <li><button onclick="window.location.href='student.html'">Attendance Tracker</button></li>
-      </ul>
-    </nav>
-    
-    
-  </header>
+  <!-- Blur Background Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 hidden" onclick="toggleMenu()"></div>
 
-  <!-- Tabs -->
-  <div class="tabs font-poppins Inline text-2xl">
-    <button class="tab" data-tab="for-you">For You</button>
-    <button class="tab" data-tab="explore">Explore</button>
+  <!-- Sliding Half-Screen Menu -->
+  <div id="mobile-menu" class="fixed top-0 right-0 h-full w-1/2 bg-[#262B30] text-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+    <ul class="p-6 space-y-4">
+      <li><button id="openAbout" class="text-lg font-semibold text-[#B3FF59] mt-8">About</button></li>
+      <li> <button id="openAdmin" class="text-lg font-semibold text-[#B3FF59]">Admin Login</button></li>
+    </ul>
+    
   </div>
+</header>
 
-  <!-- About Section -->
-  <div id="aboutSection" class="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center p-8 hidden z-50">
-    <h1 class="text-3xl font-karla mb-4">About UniSphere 🚀</h1>
-    <p class="text-center text-lg max-w-xl font-nunito">
-      Welcome to our official college platform built for students, by students. This is your space to share honest thoughts, anonymous confessions, and connect with the campus community in a real and relatable way. 
-      Whether you're here to speak your mind, read what others are thinking, or simply stay updated on campus buzz, this platform is designed to keep things open, engaging, and fun.
+
+  <!-- About Section (Optional Toggle) -->
+  <div id="aboutSection" class="fixed inset-0 bg-[#1F2A25] bg-opacity-95 flex flex-col items-center justify-center p-6 hidden z-50">
+    <h1 class="text-2xl font-karla mb-4">About UniSphere 🚀</h1>
+    <p class="text-center text-base max-w-md font-nunito leading-relaxed px-4">
+      Welcome to UniSphere, your official college platform built for students, by students.  
+      Share honest thoughts, anonymous confessions, and connect with your campus community.<br><br>
+      Access notes, attendance, AI marks (coming soon), and use our interactive chatbot.<br>
+      Post, like, and comment to stay engaged and informed.<br><br>
+      UniSphere makes college life simpler, open, and fun.
     </p>
-    <a href="https://www.instagram.com/bca.ahl" target="_blank" class="mt-6 text-pink-600 text-3xl">
+    <a href="https://www.instagram.com/bca.ahl" target="_blank" class="mt-4 text-pink-600 text-2xl hover:text-pink-400 transition">
       <i class="fab fa-instagram"></i>
     </a>
-    <button id="closeAbout" class="mt-6 bg-black text-white px-4 py-2 rounded">Close</button>
+    <button id="closeAbout" class="mt-4 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">Close</button>
   </div>
-
-  <!-- Banner Slider -->
-  <div class="slider-wrapper">
-    <div class="slider" id="slider">
-      <div class="slide"><img src="b1.jpg" alt="Banner 1"></div>
-      <div class="slide"><img src="b2.jpg" alt="Banner 2"></div>
-    </div>
-  </div>
-
-  <!-- For You Section -->
-  <div id="for-you" class="content">
-                
-                <h2 class="text-2xl font-poppins mb-4">Notes and Qps</h2>
-            <div class="notes-row">
-
-            <div class="project">
-                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/0D93WBQa" target="_blank">
-                    <img src="1st.jpg" alt="Project Image" class="project-image">
-                </a>
-            </div>
-        
-            <div class="project">
-                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/BK9BSJrD" target="_blank">
-                    <img src="2nd.jpg" alt="Project Image" class="project-image">
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/kC1RWBhb" target="_blank">
-                    <img src="3rd.jpg" alt="Project Image" class="project-image">
-                </a>
-            </div>
-            </div>
-            <div class="notes-row">
-
-            <div class="project">
-                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/Jf9VCZ7A" target="_blank">
-                    <img src="4th.jpg" alt="Project Image" class="project-image">
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/wS8nxDDZ" target="_blank">
-                    <img src="5th.jpg" alt="Project Image" class="project-image">
-                </a>
-            </div>
-            <div class="project">
-                <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/Ae1jQTrJ" target="_blank">
-                    <img src="6th.jpg" alt="Project Image" class="project-image">
-                </a>
-            </div>
-            </div>
-            <div class="max-w-md mx-auto mt-10 p-4 bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl">
-              <!-- Header -->
-              <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-md">
-                  <span class="font-Poppins text-lg text-gray-800">UniAI Chat</span>
-                  <button onclick="clearChat()" 
-                          class="text-sm bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
-                      Clear
-                  </button>
-              </div>
-          
-              <!-- Chatbox -->
-              <div id="chatbox" class="p-4 h-80 overflow-y-auto space-y-3 flex-1 text-black">
-                  <div class="text-gray-500 text-sm text-center">Start a conversation...</div>
-              </div>
-          
-              <!-- Input Section (Black & White) -->
-              <div class="flex flex-wrap items-center border-t border-gray-200 p-3 bg-white rounded-b-xl shadow-md gap-2">
-                  <input id="userInput" type="text" placeholder="Ask UniAI anything.... " 
-                         class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black w-full sm:w-auto text-black placeholder-gray-600">
-                  <button onclick="sendMessage()" 
-                          class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition shadow-md">
-                      Send
-                  </button>
-              </div>
-          </div>
-          
-                      
-                    </div>
-        <script>
-          function sendMessage() {
-            const userInput = document.getElementById("userInput");
-            const userMessage = userInput.value.trim();
-            if (!userMessage) return;
-
-            const chatbox = document.getElementById("chatbox");
-
-            // Append user message
-            chatbox.innerHTML += `
-                <div class="flex justify-end">
-                  <div class="bg-black text-white px-4 py-2 rounded-lg max-w-xs">${userMessage}</div>
-
-                </div>
-            `;
-
-            userInput.value = ""; // Clear input field
-            scrollToBottom(); // Auto-scroll to bottom
-
-            // Show loading message
-            const loadingElement = document.createElement("div");
-            loadingElement.id = "loading";
-            loadingElement.className = "flex justify-start";
-            loadingElement.innerHTML = `<div class=" text-gray-700 px-4 py-2 rounded-lg max-w-xs">Thinking...</div>`;
-            chatbox.appendChild(loadingElement);
-            scrollToBottom(); // Ensure auto-scroll
-
-            // Simulate API response after delay
-            setTimeout(async () => {
-                // Fetch AI response
-                const response = await fetch('/api/chat', { 
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userMessage })
-                });
-
-                const data = await response.json();
-
-                // Remove loading message
-                document.getElementById("loading").remove();
-
-                // Append bot response
-                chatbox.innerHTML += `
-                    <div class="flex justify-start">
-                      <div class="text-black px-4 py-2 rounded-lg max-w-xs border text-left">
-                        ${data.reply}
-                    </div>
-                    
-                    </div>
-                `;
-
-                scrollToBottom(); // Auto-scroll again
-            }, 1000);
-        }
-
-        function scrollToBottom() {
-            const chatbox = document.getElementById("chatbox");
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
-
-        function clearChat() {
-            document.getElementById("chatbox").innerHTML = `<div class="text-gray-400 text-sm text-center">Chat cleared...</div>`;
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        }
-          // Modal logic
-          const eventCard = document.getElementById('eventCard');
-          const imageModal = document.getElementById('imageModal');
-          const closeModal = document.getElementById('closeModal');
-          
-          eventCard.addEventListener('click', () => {
-            imageModal.classList.remove('hidden');
-          });
-          
-          closeModal.addEventListener('click', () => {
-            imageModal.classList.add('hidden');
-          });
-          
-          // Toggle View More button logic
-          const toggleEventsBtn = document.getElementById('toggleEventsBtn');
-          const eventsContainer = document.getElementById('eventsContainer');
-          let isExpanded = false;
-          
-          toggleEventsBtn.addEventListener('click', () => {
-            if (isExpanded) {
-              eventsContainer.style.maxHeight = '500px';
-              toggleEventsBtn.textContent = 'View More';
-            } else {
-              eventsContainer.style.maxHeight = 'none';
-              toggleEventsBtn.textContent = 'View Less';
-            }
-            isExpanded = !isExpanded;
-          });
-          </script>
-          
   
-          
-<div id="explore" class="content">
-   
-  <div id="postsContainer" class="w-full max-w-4xl mx-auto"></div>
+<!-- Admin Login Modal -->
+<div id="adminModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+  <div class="bg-[#1B1F24] text-white p-8 rounded-lg w-full max-w-sm shadow-xl">
+    <h2 class="text-xl font-bold mb-4 text-[#B3FF59]">Admin Login</h2>
 
-    
-    <div class="fixed bottom-4 right-4">
-        <button class="bg-black text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center" id="createPostButton">
-            <i class="fa-solid fa-plus"></i>
-        </button>
-    </div>
+    <input id="adminUser" type="text" placeholder="Username"
+      class="w-full mb-3 px-4 py-2 rounded-md bg-[#2C3036] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]" />
 
-    
-    <div class="fixed inset-0 bg-white z-50 hidden" id="createPost">
-        <div class="flex items-center justify-between p-4 border-b border-gray-300">
-            <i class="fas fa-arrow-left text-2xl cursor-pointer" id="createPostBackButton"></i>
-            <h1 class="text-xl font-Quicksand">Create</h1>
-            <button class="border border-black px-4 py-2 rounded-lg" id="submitPostButton">Post</button>
-        </div>
-        <div class="p-4">
-            <textarea class="w-full h-32 p-2 border border-gray-300 rounded-lg mb-2" placeholder="Share your thoughts..." id="postContent"></textarea>
-            <input type="file" id="imageInput" accept="image/*" class="hidden" />
-            <button id="imageUploadButton" class="text-gray-600 p-2 rounded-lg border border-gray-300">
-                <i class="fas fa-image mr-2"></i>Add Image
-            </button>
-            <div id="imagePreview" class="mt-4"></div>
-        </div>
+    <input id="adminPass" type="password" placeholder="Password"
+      class="w-full mb-4 px-4 py-2 rounded-md bg-[#2C3036] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]" />
+
+    <p id="adminError" class="text-red-500 text-sm mb-2 hidden"></p>
+
+    <div class="flex justify-between">
+      <button onclick="validateAdmin()"
+        class="bg-[#B3FF59] text-black px-4 py-2 rounded hover:bg-[#DFFF89] font-semibold">Login</button>
+      <button onclick="closeAdmin()"
+        class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
     </div>
+  </div>
 </div>
+
+
+  <!-- Main Sections -->
+  <main class="p-4 pb-24">
+    <!-- Home (Explore) -->
+    <section id="home" class="tab-section">
+<!-- Single Banner with Smaller Height -->
+<div class="mb-10">
+  <a href="https://example.com" target="_blank" class="block">
+    <div class="h-50 overflow-hidden">
+      <img src="uni1.jpg" alt="Banner" class="w-full h-full object-cover rounded-xl shadow-xl mb--1" />
+    </div>
+  </a>
+</div>
+
       
-        <div class="fixed inset-0 -z-50">
-            <img id="bgImage" class="w-full h-full object-cover" onerror="this.style.display='none'">
-            <div id="bgLoading" class="absolute inset-0 flex justify-center items-center">
-            </div>
-        </div>
-        
-        
-        <script src="script.js"></script>
+      
+      <!-- Optional: Tailwind CSS (with aspect-ratio plugin if not already included) -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script>
+      tailwind.config = {
+        theme: {
+          extend: {},
+        },
+        plugins: [require('@tailwindcss/aspect-ratio')],
+      };
+      </script>
+      
+      
+      <div id="postsContainer" class="w-full max-w-4xl mx-auto"></div>
+
+    </section>
+
+    <!-- Notes -->
+    <section id="notes" class="tab-section hidden px-4 py-6">
+      <h2 class="text-2xl font-bold text-center text-[#B3FF59] mb-6">Notes and QPs</h2>
+    
+      <!-- Search bar -->
+      <div class="mb-6 max-w-md mx-auto">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search by subject or course..." 
+          class="w-full px-4 py-3 rounded-lg bg-[#2C3036] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]"
+          oninput="filterBooks()"
+        />
+      </div>
+    
+      <!-- Grid with original image size -->
+      <div id="notesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
+        <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/0D93WBQa" target="_blank">
+          <img src="1st.jpg" alt="BCA 1st sem" class="mx-auto mb-2" />
+          <div class="text-white font-medium">BCA 1st sem</div>
+        </a>
+    
+        <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/BK9BSJrD" target="_blank">
+          <img src="2nd.jpg" alt="BCA 2nd sem" class="mx-auto mb-2" />
+          <div class="text-white font-medium">BCA 2nd sem</div>
+        </a>
+    
+        <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/kC1RWBhb" target="_blank">
+          <img src="3rd.jpg" alt="BCA 3rd sem" class="mx-auto mb-2" />
+          <div class="text-white font-medium">BCA 3rd sem</div>
+        </a>
+    
+        <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/Jf9VCZ7A" target="_blank">
+          <img src="4th.jpg" alt="BCA 4th sem" class="mx-auto mb-2" />
+          <div class="text-white font-medium">BCA 4th sem</div>
+        </a>
+    
+        <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/wS8nxDDZ" target="_blank">
+          <img src="5th.jpg" alt="BCA 5th sem" class="mx-auto mb-2" />
+          <div class="text-white font-medium">BCA 5th sem</div>
+        </a>
+    
+        <a href="https://mega.nz/folder/FKNlnB6D#9hOs96f7AylcLOGVeoh9Fg/folder/Ae1jQTrJ" target="_blank">
+          <img src="6th.jpg" alt="BCA 6th sem" class="mx-auto mb-2" />
+          <div class="text-white font-medium">BCA 6th sem</div>
+        </a>
+      </div>
+    </section>
+    
+    
+    <!-- Add Post -->
+    <section id="add" class="tab-section hidden">
+    <!-- Create Post Modal -->
+    <div class="fixed inset-0 bg-white z-50 hidden" id="createPost">
+      <div class="flex items-center justify-between p-4 border-b border-gray-300">
+          <i class="fas fa-arrow-left text-2xl cursor-pointer" id="createPostBackButton"></i>
+          <h1 class="text-xl font-Quicksand">Create</h1>
+          <button class="border border-black px-4 py-2 rounded-lg" id="submitPostButton">Post</button>
+      </div>
+      <div class="p-4">
+          <textarea
+              class="w-full h-32 p-2 border border-gray-300 rounded-lg mb-2"
+              placeholder="Share your thoughts..."
+              id="postContent"
+          ></textarea>
+          <input type="file" id="imageInput" accept="image/*" class="hidden" />
+          <button
+              id="imageUploadButton"
+              class="text-gray-600 p-2 rounded-lg border border-gray-300"
+          >
+              <i class="fas fa-image mr-2"></i>Add Image
+          </button>
+          <div id="imagePreview" class="mt-4"></div>
+      </div>
+  </div>
+
+  <!-- Background Image -->
+  <div class="fixed inset-0 -z-50">
+      <img
+          id="bgImage"
+          class="w-full h-full object-cover"
+          onerror="this.style.display='none'"
+      />
+      <div id="bgLoading" class="absolute inset-0 flex justify-center items-center"></div>
+  </div>
+
+    </section>
+    <script>
+      document.getElementById("createPostBackButton").addEventListener("click", function () {
+        // Hide the Create Post modal
+        document.getElementById("createPost").classList.add("hidden");
+    
+        // Show the Home tab
+        document.getElementById("home").classList.remove("hidden");
+    
+        // Hide other tabs if needed
+        document.getElementById("add").classList.add("hidden"); // hides the 'add' section
+      });
+    </script>
+    
+    
+    <!-- Chat Bot -->
+<!-- Load Marked.js for Markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<section id="bot" class="tab-section hidden fixed inset-0 bg-[#1B1F24] text-white z-50 flex flex-col">
+  <!-- Header -->
+  <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700 bg-[#1B1F24]">
+    <h2 class="text-xl font-bold text-[#B3FF59]">UniAI Chat</h2>
+    <button onclick="clearChat()" class="text-sm px-4 py-1 bg-[#2F353C] hover:bg-[#B3FF59] hover:text-black rounded-md transition">Clear</button>
+  </div>
+
+  <!-- Chat messages -->
+  <div id="chatbox" class="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-[#1B1F24]">
+    <div class="text-gray-400 text-center">Start a conversation...</div>
+  </div>
+
+  <!-- Input box -->
+  <div class="px-6 pb-32 pt-4 bg-[#1F242B] border-t border-gray-700">
+    <div class="flex items-center gap-2">
+      <input id="userInput" type="text" placeholder="Ask UniAI anything..."
+        class="flex-1 px-4 py-3 rounded-lg bg-[#2C3036] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]"
+        onkeypress="handleKeyPress(event)" />
+      <button onclick="sendMessage()"
+        class="px-5 py-3 bg-[#B3FF59] text-black font-semibold rounded-lg hover:bg-[#DFFF89] transition">Send</button>
+    </div>
+  </div>
+</section>
+<section id="attendance" class="tab-section hidden p-6 bg-[#1B1F24] text-white max-w-3xl mx-auto rounded-lg shadow-lg">
+  <h2 class="text-2xl font-bold mb-6 text-[#B3FF59] text-center">Student Info Portal</h2>
+
+  <!-- Tab Header -->
+  <div class="flex justify-center border-b border-[#3A3F47] mb-6">
+    <button
+      id="tab-attendance-btn"
+      class="tab-header-btn active-tab"
+      onclick="switchAttendanceTab('attendance')"
+      type="button"
+    >
+      Attendance
+    </button>
+    <button
+      id="tab-marks-btn"
+      class="tab-header-btn"
+      onclick="switchAttendanceTab('marks')"
+      type="button"
+    >
+      AI Marks
+    </button>
+  </div>
+
+  <!-- Attendance Content -->
+  <div id="tab-attendance" class="tab-content attendance-content p-6 rounded-lg bg-[#263238] shadow-inner">
+    <input
+      type="text"
+      id="studentID"
+      placeholder="Enter Student ID"
+      class="w-full mb-4 px-4 py-3 rounded-md bg-[#37474F] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]"
+    />
+    <button
+      onclick="fetchAttendance()"
+      class="w-full bg-[#B3FF59] text-black font-semibold py-3 rounded-md hover:bg-[#DFFF89] transition"
+    >
+      Check Attendance
+    </button>
+    <div id="attendance-result" class="mt-6 text-sm"></div>
+  </div>
+
+  <!-- AI Marks Content -->
+  <div id="tab-marks" class="tab-content marks-content hidden p-6 rounded-lg bg-[#424242] shadow-inner">
+    <input
+      type="text"
+      id="studentIDMarks"
+      placeholder="Enter Student ID"
+      class="w-full mb-4 px-4 py-3 rounded-md bg-[#616161] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]"
+      disabled
+    />
+    <button
+      onclick="document.getElementById('marks-result').innerHTML = '<p class=\'text-yellow-300 font-medium text-center\'>🚧 Coming Soon — We\'re working on it!</p>'"
+      class="w-full bg-[#B3FF59] text-black font-semibold py-3 rounded-md hover:bg-[#DFFF89] transition"
+    >
+      Check AI Marks
+    </button>
+    <div id="marks-result" class="mt-6 text-sm"></div>
+  </div>
+  
+
+  <button
+  id="closeAbout"
+  onclick="document.getElementById('attendance').classList.add('hidden'); showTab('home');"
+  class="mt-8 bg-black text-white px-6 py-3 rounded mx-auto block hover:bg-gray-900 transition"
+>
+  Close
+</button>
+</section>
+
+<script>
+  function switchAttendanceTab(tab) {
+    const attendanceTab = document.getElementById('tab-attendance');
+    const marksTab = document.getElementById('tab-marks');
+
+    const attendanceBtn = document.getElementById('tab-attendance-btn');
+    const marksBtn = document.getElementById('tab-marks-btn');
+
+    if (tab === 'attendance') {
+      attendanceTab.classList.remove('hidden');
+      marksTab.classList.add('hidden');
+
+      attendanceBtn.classList.add('active-tab');
+      marksBtn.classList.remove('active-tab');
+    } else if (tab === 'marks') {
+      attendanceTab.classList.add('hidden');
+      marksTab.classList.remove('hidden');
+
+      attendanceBtn.classList.remove('active-tab');
+      marksBtn.classList.add('active-tab');
+    }
+  }
+
+  // Initialize with attendance tab visible
+  switchAttendanceTab('attendance');
+</script>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+<!-- Bottom Navigation Container -->
+<nav
+  class="fixed bottom-0 left-0 w-full
+         bg-[#1A1A1D] text-white
+         shadow-xl flex items-center justify-between
+         px-8 py-3 z-50 backdrop-blur-md
+         border-t-4 border-[#2A2A2E]"
+  role="navigation"
+  aria-label="Bottom Navigation"
+>
+  <!-- Left Icons -->
+  <div class="relative group">
+    <button
+      onclick="showTab('home')"
+      class="flex flex-col items-center text-gray-400 hover:text-lime-400 transition"
+      aria-label="Home"
+      title="Home"
+      type="button"
+    >
+      <i class="fas fa-home text-xl" aria-hidden="true"></i>
+    </button>
+    <span
+      class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition"
+      role="tooltip"
+      >Home</span
+    >
+  </div>
+
+  <div class="relative group">
+    <button
+      onclick="showTab('notes')"
+      class="flex flex-col items-center text-gray-400 hover:text-lime-400 transition"
+      aria-label="Notes"
+      title="Notes"
+      type="button"
+    >
+      <i class="fas fa-book text-xl" aria-hidden="true"></i>
+    </button>
+    <span
+      class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition"
+      role="tooltip"
+      >Notes</span
+    >
+  </div>
+
+  <!-- Spacer for center '+' button -->
+  <div class="w-16"></div>
+
+  <!-- Right Icons -->
+  <div class="relative group">
+    <button
+      onclick="showTab('bot')"
+      class="flex flex-col items-center text-gray-400 hover:text-lime-400 transition"
+      aria-label="UniAI Chat"
+      title="UniAI Chat"
+      type="button"
+    >
+      <i class="fas fa-robot text-xl" aria-hidden="true"></i>
+    </button>
+    <span
+      class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition"
+      role="tooltip"
+      >UniAi</span
+    >
+  </div>
+
+  <div class="relative group">
+    <button
+      onclick="showTab('attendance')"
+      class="flex flex-col items-center text-gray-400 hover:text-lime-400 transition"
+      aria-label="Attendance Stats"
+      title="Attendance Stats"
+      type="button"
+    >
+      <i class="fas fa-check-circle text-xl" aria-hidden="true"></i>
+    </button>
+    <span
+      class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition"
+      role="tooltip"
+      >Stats</span
+    >
+  </div>
+</nav>
+
+<!-- Floating '+' Create Post Button -->
+<button
+  onclick="showTab('add')"
+  class="fixed bottom-[25px] left-1/2 transform -translate-x-1/2
+         bg-lime-400 text-black w-14 h-14 rounded-full
+         shadow-[#1F2A25]
+         flex items-center justify-center
+         ring-4 ring-[#1F2A25] border-4 border-[#1A1A1D]
+         z-50 hover:scale-110 transition-all"
+  id="createPostButton"
+  aria-label="Create Post"
+  title="Create Post"
+  type="button"
+>
+  <i class="fa-solid fa-plus text-2xl" aria-hidden="true"></i>
+</button>
+
+
+  <!-- Script -->
   <script>
+      // Function to show a tab by id and hide others
+      function showTab(tabId) {
+        // Get all tab sections
+        const tabs = document.querySelectorAll('.tab-section');
+        
+        // Loop through all tabs, hide those not matching tabId, show the matching one
+        tabs.forEach(tab => {
+          if (tab.id === tabId) {
+            tab.classList.remove('hidden');
+          } else {
+            tab.classList.add('hidden');
+          }
+        });
+    
+        // Update nav buttons active state if you want
+        // For example, add a class 'active' to the selected button and remove from others
+        const navButtons = document.querySelectorAll('nav button');
+        navButtons.forEach(btn => {
+          if (btn.getAttribute('onclick') === `showTab('${tabId}')`) {
+            btn.classList.add('text-lime-400');
+            btn.classList.remove('text-gray-400');
+          } else {
+            btn.classList.remove('text-lime-400');
+            btn.classList.add('text-gray-400');
+          }
+        });
+      }
+    
+      // Optionally, show the default tab on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        showTab('home'); // or any default tab you want to show first
+      });
+    
+      // For closing the bot or other tabs programmatically
+      function closeTab(tabId) {
+        const tab = document.getElementById(tabId);
+        if (tab) {
+          tab.classList.add('hidden');
+        }
+      }
+
+  </script>
+  <!-- Add this in your HTML file (inside <head> or before </body>) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <script>
+    async function sendMessage() {
+      const userInput = document.getElementById("userInput");
+      const userMessage = userInput.value.trim();
+      if (!userMessage) return;
+  
+      const chatbox = document.getElementById("chatbox");
+  
+      // Append user message
+      chatbox.innerHTML += `
+        <div class="flex justify-end">
+          <div class="bg-[#2F353C] text-white px-4 py-2 rounded-lg max-w-xs whitespace-pre-wrap">${userMessage}</div>
+        </div>
+      `;
+  
+      userInput.value = "";
+      scrollToBottom();
+  
+      // Show loading message
+      const loadingElement = document.createElement("div");
+      loadingElement.id = "loading";
+      loadingElement.className = "flex justify-start";
+      loadingElement.innerHTML = `<div class="bg-grey-200 text-gray-400 px-4 py-2 rounded-lg max-w-xs animate-pulse">Thinking...</div>`;
+      chatbox.appendChild(loadingElement);
+      scrollToBottom();
+  
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: userMessage })
+        });
+  
+        const data = await response.json();
+        document.getElementById("loading").remove();
+  
+        // Append bot response with Markdown rendering
+        chatbox.innerHTML += `
+          <div class="flex justify-start">
+            <div class="text-white px-4 py-2 rounded-lg w-full text-sm leading-snug whitespace-pre-wrap space-y-1">
+              ${marked.parse(data.reply)}
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("loading").remove();
+        chatbox.innerHTML += `
+          <div class="flex justify-start">
+            <div class="bg-red-500 text-white px-4 py-2 rounded-lg max-w-xs">Error: Failed to fetch response.</div>
+          </div>
+        `;
+      }
+  
+      scrollToBottom();
+    }
+  
+    function scrollToBottom() {
+      const chatbox = document.getElementById("chatbox");
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  
+    function clearChat() {
+      document.getElementById("chatbox").innerHTML = `<div class="text-gray-400 text-sm text-center">Chat cleared...</div>`;
+    }
+  
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    }
+    
+   
+    </script>
+    
+       <script src="script.js"></script>
+       <script>
     function toggleMenu() {
       const menu = document.getElementById("mobile-menu");
       const menuIcon = document.querySelector(".menu");
@@ -306,29 +593,175 @@
           menu.style.transform = "translateX(100%)";
       }
   }
+
+    let currentBanner = 0;
+    const banners = document.querySelectorAll('.banner-img');
   
-    
-    
-    
-    // About Section Toggle
-    document.getElementById('openAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.remove('hidden'));
-    document.getElementById('closeAbout').addEventListener('click', () => document.getElementById('aboutSection').classList.add('hidden'));
-
-    // Background Load
-    document.addEventListener("DOMContentLoaded", () => {
-      const bgImage = document.getElementById("bgImage");
-      bgImage.src = `/api/background?ts=${Date.now()}`;
-      bgImage.onload = () => bgLoading.style.display = "none";
-    });
-
-    // Banner Slider
-    let currentSlide = 0;
-    setInterval(() => {
-      currentSlide = (currentSlide + 1) % 2;
-      document.getElementById('slider').style.transform = `translateX(-${currentSlide * 50}%)`;
-    }, 3000);
-
+    function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      const nav = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('overlay');
   
+      menu.classList.toggle('active');
+      nav.classList.toggle('translate-x-full');
+      nav.classList.toggle('translate-x-0');
+      overlay.classList.toggle('hidden');
+    }
+
+      const openAboutBtn = document.getElementById("openAbout");
+      const closeAboutBtn = document.getElementById("closeAbout");
+      const aboutSection = document.getElementById("aboutSection");
+    
+      openAboutBtn.addEventListener("click", () => {
+        aboutSection.classList.remove("hidden");
+      });
+    
+      closeAboutBtn.addEventListener("click", () => {
+        aboutSection.classList.add("hidden");
+      });
+
+    
   </script>
+  <script>
+    async function validateAdmin() {
+      const user = document.getElementById("adminUser").value.trim();
+      const pass = document.getElementById("adminPass").value.trim();
+      const adminError = document.getElementById("adminError");
+  
+      try {
+        const response = await fetch("http://localhost:5000/api/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: user, password: pass }),
+        });
+  
+        const data = await response.json();
+  
+        if (data.success) {
+          window.location.href = "upload.html"; // your secret admin dashboard page
+          closeAdmin();
+          // Optional: show admin controls here
+        } else {
+          adminError.textContent = "Invalid credentials.";
+          adminError.classList.remove("hidden");
+        }
+      } catch (err) {
+        console.error("Login error:", err);
+        adminError.textContent = "Server error. Try again later.";
+        adminError.classList.remove("hidden");
+      }
+    }
+  
+    function closeAdmin() {
+      document.getElementById("adminModal").classList.add("hidden");
+      document.getElementById("adminUser").value = "";
+      document.getElementById("adminPass").value = "";
+      document.getElementById("adminError").classList.add("hidden");
+    }
+  
+    document.getElementById("openAdmin").addEventListener("click", () => {
+      document.getElementById("adminModal").classList.remove("hidden");
+    });
+  </script>
+  <script>
+    function filterBooks() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('#notesGrid a');
+  
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(input) ? 'block' : 'none';
+      });
+    }
+    
+  </script>
+  <script>
+
+  
+    async function fetchAttendance() {
+      const studentID = document.getElementById("studentID").value.trim();
+      const resultDiv = document.getElementById("attendance-result");
+  
+      if (!studentID) {
+        resultDiv.innerHTML = "<p class='text-red-500'>Please enter a Student ID.</p>";
+        return;
+      }
+  
+      resultDiv.innerHTML = "<p class='text-gray-400'>🔄 Fetching attendance...</p>";
+  
+      try {
+        const response = await fetch(`https://attendance-ofd8.onrender.com/student/attendance/${encodeURIComponent(studentID)}`);
+  
+        if (!response.ok) {
+          throw new Error(`Server responded with status ${response.status}`);
+        }
+  
+        const student = await response.json();
+  
+        if (!student || !student.subjects) {
+          throw new Error("Student data is incomplete or missing.");
+        }
+  
+        let tableHTML = `
+          <h3 class="text-2xl font-bold text-center text-[#B3FF59] mb-6 border-b border-gray-700 pb-2">
+            Attendance for <span class="text-white">${student.name}</span> 
+            <span class="text-sm text-gray-400">(${student.studentID})</span>
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#1F242B] text-[#B3FF59]">
+                  <th class="px-4 py-2 border-b border-gray-700">Subject</th>
+                  <th class="px-4 py-2 border-b border-gray-700">Attended</th>
+                  <th class="px-4 py-2 border-b border-gray-700">Total</th>
+                  <th class="px-4 py-2 border-b border-gray-700">Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+  
+        Object.entries(student.subjects).forEach(([subject, data]) => {
+          let percentage = data.totalClasses > 0
+            ? ((data.attendedClasses / data.totalClasses) * 100).toFixed(2)
+            : "N/A";
+  
+          let colorClass = (percentage !== "N/A" && percentage < 75)
+            ? "text-red-400 font-bold"
+            : "text-green-400 font-bold";
+  
+          tableHTML += `
+            <tr class="border-b border-gray-800 hover:bg-[#2F353C] transition">
+              <td class="px-4 py-2">${subject}</td>
+              <td class="px-4 py-2">${data.attendedClasses}</td>
+              <td class="px-4 py-2">${data.totalClasses}</td>
+              <td class="px-4 py-2 ${colorClass}">${percentage}%</td>
+            </tr>
+          `;
+        });
+  
+        tableHTML += `
+              </tbody>
+            </table>
+          </div>
+        `;
+  
+        resultDiv.innerHTML = tableHTML;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        resultDiv.innerHTML = `<p class='text-red-500'>❌ ${error.message}</p>`;
+      }
+    }
+  
+    // Ensure this runs after DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      const closeBtn = document.getElementById("closeAbout");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          document.getElementById("attendance").classList.add("hidden");
+        });
+      }
+    });
+  </script>
+  
 </body>
 </html>
