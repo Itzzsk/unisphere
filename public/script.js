@@ -1,38 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const tabs = document.querySelectorAll(".tab");
-    const contents = document.querySelectorAll(".content");
-
-    function activateTab(tabName) {
-        if (!document.getElementById(tabName)) {
-            tabName = "for-you"; // Default to 'For You' if invalid tab
-        }
-
-        tabs.forEach(tab => tab.classList.remove("active"));
-        contents.forEach(content => content.classList.remove("active", "fade-in"));
-
-        document.querySelector(`.tab[data-tab="${tabName}"]`)?.classList.add("active");
-        const activeContent = document.getElementById(tabName);
-        if (activeContent) {
-            activeContent.classList.add("active", "fade-in");
-        }
-
-        history.replaceState(null, null, `#${tabName}`); // Updates URL without adding to history
-    }
-
-    tabs.forEach(tab => {
-        tab.addEventListener("click", function () {
-            const tabName = this.getAttribute("data-tab");
-            if (window.location.hash.substring(1) !== tabName) {
-                activateTab(tabName);
-            }
-        });
-    });
-
-    // Set default or hash-based tab on page load
-    const hash = window.location.hash.substring(1);
-    activateTab(hash || "for-you"); // Defaults to 'For You'
-
-});
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -168,11 +133,11 @@ async function fetchPosts() {
        
         // Update the post template in fetchPosts()
         postsContainer.innerHTML = posts.map(post => `
-            <div class="bg-white p-3 rounded-2xl  shadow-lg  mb-4">
+            <div class="rounded-2xl  shadow-lg  mb-4  style="background-color: #121B1A;"">
                 <div class="flex items-center mb-4">
-                    <h1 class="font-poppins text-black">UniSphere</h1>
+                    <h1 class="font-poppins text-white">UniSphere</h1>
                 </div>
-                ${post.content ? `<p class="text-black leading-relaxed mb-4">${post.content}</p>` : ''}
+                ${post.content ? `<p class="text-white leading-relaxed mb-4">${post.content}</p>` : ''}
                 ${post.imageUrl ? `
                     <div class="relative overflow-hidden rounded-lg" style="padding-top: 56.25%">
                         <img src="${post.imageUrl}" 
@@ -183,17 +148,19 @@ async function fetchPosts() {
                 ` : ''}
                 <div class="flex items-center gap-2 mt-4">
                 <button class="like-btn flex items-center group" data-post-id="${post._id}" data-liked="${post.liked}">
-    <svg class="w-6 h-6 ${post.liked ? 'text-red-500' : 'text-black'}" 
-         fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
-        </path>
-    </svg>
-    <span class="like-count ml-1 text-black">${post.likes || 0}</span>
-</button>
+                <svg class="w-6 h-6 transition-colors duration-200"
+                     fill="${post.liked ? 'currentColor' : 'none'}"
+                     class="${post.liked ? 'text-red-500' : 'text-white'}"
+                     stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <span class="like-count ml-1 ${post.liked ? 'text-red-500' : 'text-white'}">${post.likes || 0}</span>
+              </button>
+              
 
             
-                    <button class="flex items-center text-black hover:text-blue-500 ml-2" 
+                    <button class="flex items-center text-white hover:text-blue-500 ml-2" 
                             onclick="toggleCommentSection('${post._id}')">
                             <svg class="w-6 h-6" 
                             fill="none" 
@@ -207,15 +174,19 @@ async function fetchPosts() {
                            </path>
                        </svg>
                        
-                        <span class="comment-count ml-1 text-black">${post.comments?.length || 0}</span>
+                        <span class="comment-count ml-1 text-white">${post.comments?.length || 0}</span>
                     </button>
                 </div>
                 <div id="commentSection-${post._id}" class="hidden">
-                    <input type="text" id="commentInput-${post._id}" 
-                           placeholder="Write a comment..." 
-                           class="border p-2 rounded w-full mt-2"/>
+                <input 
+                type="text" 
+                id="commentInput-${post._id}" 
+                placeholder="Write a comment..." 
+                class="border p-2 rounded w-full mt-2 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#B3FF59]"
+              />
+              
                     <button onclick="submitComment('${post._id}')" 
-                            class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">
+                            class="mt-2 bg-blue-500 text-black px-4 py-2 rounded">
                         Submit
                     </button>
                     <div id="commentsContainer-${post._id}" class="mt-2 text-left"></div>
@@ -315,7 +286,7 @@ async function submitComment(postId) {
         // Add new comment at the top
         const commentsContainer = document.getElementById(`commentsContainer-${postId}`);
         const newCommentElement = document.createElement("p");
-        newCommentElement.classList.add("text-black", "mt-2");
+        newCommentElement.classList.add("text-white", "mt-2");
         newCommentElement.innerHTML = `<i class="fa-regular fa-comment"></i> ${comment}`;
 
         commentsContainer.prepend(newCommentElement); // Add to top instead of append
@@ -349,7 +320,7 @@ async function fetchComments(postId) {
         // Reverse the order so the latest comments appear first
         comments.reverse().forEach(comment => {
             const commentElement = document.createElement("p");
-            commentElement.classList.add("text-black", "mt-2");
+            commentElement.classList.add("text-white", "mt-2");
             commentElement.innerHTML = `<i class="fa-regular fa-comment"></i> ${comment.content}`;
             commentsContainer.appendChild(commentElement);
         });
