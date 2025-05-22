@@ -14,14 +14,16 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const studentRoutes = require("./routes/studentRoutes");
 const customResponses = require("./responses"); 
+const Marks = require('./models/marks');
+
 // 🔹 Serve static files
-app.use(express.static('public'));
+app.use(express.static('public'))
+
 
 // 🔹 CORS Configuration
 app.use(cors({
   origin: [
-    'http://localhost:5000', // Backend itself (not needed in most cases)
-    'https://unisphere.onrender.com', // Your deployed frontend
+    'http://localhost:5000', // Backend itself (not needed in most cases) // Your deployed frontend
     'https://res.cloudinary.com' // If making requests to Cloudinary from the backend
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -73,36 +75,22 @@ app.use("/api/students", studentRoutes);
 app.get('/', (req, res) => {
     res.send('✅ Attendance Management API is running');
 });
-
++
 // Handle Undefined Routes
  
 // =========================================
 // ✅ Admin Login System
 // =========================================
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH; // Hashed password
-
-// 🔹 Admin Login Route
-app.post('/api/admin/login', async (req, res) => {
+app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
 
-  try {
-    if (username !== ADMIN_USERNAME) {
-      return res.status(401).json({ success: false, message: "Invalid credentials" });
-    }
-
-    const isMatch = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, message: "Invalid credentials" });
-    }
-
-    // Generate JWT Token
-    const token = jwt.sign({ username: ADMIN_USERNAME }, JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({ success: true, token });
-  } catch (error) {
-    console.error("⚠️ Login Error:", error);
-    res.status(500).json({ success: false, message: "Server error" });
+  if (
+    username === process.env.ADMIN_USERNAME &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    return res.json({ success: true });
+  } else {
+    return res.status(401).json({ success: false });
   }
 });
 
@@ -131,7 +119,6 @@ app.post('/api/upload/background', upload.single('background'), async (req, res)
 // Fetch Background
 app.get("/api/background", async (req, res) => {
   try {
-    console.log("🔍 Fetching background image...");
     const background = await Background.findOne();  // Ensure 'Background' is correct
     if (!background) {
       return res.status(404).json({ error: "No background image found" });
@@ -142,6 +129,9 @@ app.get("/api/background", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch background" });
   }
 });
+
+
+
 // ✅ Schemas & Models
 // =========================================
 const postSchema = new mongoose.Schema({
@@ -199,7 +189,6 @@ app.post('/api/posts', async (req, res) => {
 
 app.get('/api/posts', async (req, res) => {
   try {
-    console.log("🔍 Fetching posts..."); // Debugging log
     const posts = await Post.find().sort({ createdAt: -1 });
     
     if (!posts || posts.length === 0) {
@@ -296,8 +285,25 @@ app.post("/api/chat", async (req, res) => {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
+  
 });
 
+
+app.get('/api/marks/:reg_no', async (req, res) => {
+  try {
+    const reg_no = req.params.reg_no;
+    const marks = await Marks.find({ reg_no });
+
+    if (marks.length === 0) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    res.json(marks);
+  } catch (error) {
+    console.error("❌ Error fetching student marks:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // =========================================
 // ✅ Serve Frontend
