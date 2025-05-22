@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const studentRoutes = require("./routes/studentRoutes");
 const customResponses = require("./responses"); 
-const Marks = require('./models/marks');
+
 
 // 🔹 Serve static files
 app.use(express.static('public'))
