@@ -1,6 +1,6 @@
 const customResponses = {
     "who created you": "Skanda is the owner and creator of UniAI.",
-    "who is the owner of uniai": "Skanda is the owner and creator of UniAI.",
+   "who is kamala s":"kamala s is Head of the Department for computer science.",
     "what is unisphere": "UniSphere is a mobile-friendly college web app developed by skanda, where students can post anonymously, get like and comment on posts, and access study materials such as notes and question papers. It also features an attendance tracker.",
     "how to mark attendance": "Teachers can mark attendance by selecting the date, subject, and checking the present students before submitting.",
     "who are you":"Im UniAI created by skanda.",
